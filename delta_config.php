@@ -1,0 +1,4 @@
+<?php
+//Database Connections Here
+
+?>
