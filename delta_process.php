@@ -1,4 +1,6 @@
 <?php
+
+include("delta_config.php");
 //Database processing in this common file
 
 function adminLogin($email)
@@ -26,7 +28,7 @@ if($process=="admin_login")
     $hash_pass=adminLogin($email);
     if(password_verify($password, $hash_pass)) {
     $_SESSION['admin']=$email;
-    header('Location: dashboard.html');
+    header('Location: admin/dashboard.php');
     exit;
     }
     else
