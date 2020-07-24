@@ -12,9 +12,7 @@ function adminLogin($email)
   $stmt->execute();
   $result = $stmt->get_result(); // get the mysqli result
   $data = $result->fetch_assoc(); // fetch data
-  foreach ($data as &$value) {
-    return $value;
-    }
+    return $data['password'];
     CloseCon($conn);
 }
 
