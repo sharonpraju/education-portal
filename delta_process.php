@@ -13,7 +13,7 @@ function fetchData($page, $section, $element)
   foreach ($data as &$value) {
     return $value;
     }
-  $conn -> close();
+    CloseCon($conn);
 }
 
 ?>
