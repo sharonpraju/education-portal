@@ -1,5 +1,5 @@
 <?php
-//Database Connections Here
+//Database Connections Here adasdasd
 function OpenCon()
  {
  $dbhost = "164.68.110.46:3306";
@@ -17,3 +17,4 @@ function CloseCon($conn)
  }
  
 ?>
+
