@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- hi -->
 <head>
 
   <meta charset="utf-8">
@@ -62,7 +62,7 @@
 
         ///$user ="admin"; 
         if($_GET['user']=="admin"){echo "i'm admin";}
-        if($_GET['user']=="teachert"){echo "i'm teachert";}
+        if($_GET['user']=="teachert"){echo "i'm teacher";}
         if($_GET['user']=="hod"){echo "i'm hod";}
         if($_GET['user']=="student"){echo "i'm student";}
         
