@@ -4,13 +4,14 @@ $query = "SELECT id, name, who, department, email, ban_status FROM users";
 $result = mysqli_query($connect, $query);
 ?>
 <html>  
- <head>  
-          <title>Table test</title>  
+<head>  
+          <title>Live Table Data Edit Delete using Tabledit Plugin in PHP</title>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>            
     <script src="jquery.tabledit.min.js"></script>
     </head>  
+
     <body>  
   <div class="container">  
    <br />  
@@ -66,7 +67,7 @@ $(document).ready(function(){
      $('#dataTable').Tabledit({
       url:'table_action.php',
       columns:{
-       identifier:[0, "id"],
+       identifier:[0, 'id'],
        editable: [[1, 'name'], [2, 'position'], [3, 'department'], [4, 'email'], [5, 'ban']]
       },
       restoreButton:false,
