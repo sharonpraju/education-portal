@@ -99,7 +99,7 @@
                 </select>
             
               </form>
-              <a href="#" class="btn btn-success btn-icon-split bg-gradient-warning ">
+              <a href="#" class="btn btn-success btn-icon-split ">
                 <span class="icon text-white-50 bg-gradient-warning ">
                  <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i class="fas fa-check"></i>
                 </span>
@@ -121,7 +121,6 @@
         if($_GET['user']=="student"){echo "i'm student";}
         
         ?>
-        <p class="mb-0 small">Note: This utility animates the CSS transform property, meaning it will override any existing transforms on an element being animated! In this theme, the grow in animation is only being used on dropdowns within the navbar.</p>
 
         </div>
         <!-- /.container-fluid -->
@@ -196,6 +195,7 @@
       //If true
             $('i').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
         }, 2000);
+        //if error change button "bg-gradient-warning "
   })
   </script>
 
