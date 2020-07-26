@@ -6,6 +6,7 @@ function OpenCon()
  $dbuser = "delta_x";
  $dbpass = 'x3v$ANKgwm52gbjz';
  $db = "delta_db";
+ $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
 
  //$dbhost = "127.0.0.1:3306";
  //$dbuser = "root";
