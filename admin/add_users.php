@@ -10,13 +10,28 @@
   <meta name="author" content="">
 
   <title>Dashboard</title>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <style>
+.block{
+
+  display: inline-table;
+  width: 150px;
+  padding: 3px;
+}
+.drop_pos
+{
+  padding-top: 80px;
+}
+#department_drop{
+  margin-top: 15px;
+}
+  </style>
 
 </head>
 
@@ -60,14 +75,53 @@
 
         <?php
 
-        ///$user ="admin"; 
-        if($_GET['user']=="admin"){echo "i'm admin";}
-        if($_GET['user']=="teachert"){echo "i'm teachert";}
-        if($_GET['user']=="hod"){echo "i'm hod";}
+        ///$user ="admin";
+        if($_GET['user']=="teacher")
+        {
+          echo ' <center>   <div class="col-lg-6">
+
+          <div class="card position-relative">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add New Teacher</h4>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <code>.animated--grow-in</code>
+              </div>    <div class="block">Name:<input maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Email:<input maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Password:<input maxlength="15" type="text" class="input-res"></div>
+              <div class="block">Confirm:<input  maxlength="15" type="text" class="input-res"></div><br>
+              <form id="department_drop">
+                <label for="cars">Department:</label>
+                <select id="cars" name="cars">
+                  <option value="CSE">CSE</option>
+                
+                </select>
+            
+              </form>
+              <a href="#" class="btn btn-success btn-icon-split bg-gradient-warning ">
+                <span class="icon text-white-50 bg-gradient-warning ">
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Add</span>
+              </a>
+                  </li>
+                </ul>
+              </nav>
+              
+            </div>
+          </div>
+
+        </div></center>  ';
+        
+        }
+        
+      
+ 
         if($_GET['user']=="student"){echo "i'm student";}
         
         ?>
-        
+        <p class="mb-0 small">Note: This utility animates the CSS transform property, meaning it will override any existing transforms on an element being animated! In this theme, the grow in animation is only being used on dropdowns within the navbar.</p>
 
         </div>
         <!-- /.container-fluid -->
@@ -133,5 +187,16 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
+<!--Ajax Query for Adding Teacher-->
+<script>
+  $('.text').click(function ()
+  {
+    $('i').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
+    setTimeout(function () {
+      //If true
+            $('i').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
+        }, 2000);
+  })
+  </script>
 
 </html>
