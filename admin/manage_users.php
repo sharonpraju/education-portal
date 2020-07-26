@@ -1,3 +1,10 @@
+<?php
+
+include("../delta_config.php");
+$conn = OpenCon();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,11 +106,8 @@
                   <tbody>
                     <?php 
 
-                    $dbhost = "127.0.0.1:3306";
-                    $dbuser = "root";
-                    $dbpass = '';
-                    $db = "delta_db";
-                    $conn = new mysqli($dbhost, $dbuser, $dbpass,$db) or die("Connect failed: %s\n". $conn -> error);
+                    
+                    
 
                     $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
