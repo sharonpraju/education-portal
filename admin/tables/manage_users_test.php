@@ -65,7 +65,7 @@ $result = mysqli_query($connect, $query);
 <script>  
 $(document).ready(function(){  
      $('#dataTable').Tabledit({
-      url:'table_action.php',
+      url:'../../delta_process.php',
       columns:{
        identifier:[0, 'id'],
        editable: [[1, 'name'], [2, 'who'], [3, 'department'], [4, 'email'], [5, 'ban_status']]
