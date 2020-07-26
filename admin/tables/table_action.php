@@ -13,17 +13,14 @@ $ban_status = mysqli_real_escape_string($connect, $input["ban_status"]);
 
 if($input["action"] === 'edit')
 {
- $query = "
- UPDATE users 
+ $query = " UPDATE users 
  SET 
  name = '".$name."', 
- who = '".$who."'
- department = '".$department."'
- email = '".$email."'
- ban_status = '".$ban_status."' 
-
- WHERE id = '".$input["id"]."'
- ";
+ who = '".$who."',
+ department = '".$department."',
+ email = '".$email."',
+ ban_status = '".$ban_status."'
+ WHERE id = '".$input["id"]."'";
 
  mysqli_query($connect, $query);
 
