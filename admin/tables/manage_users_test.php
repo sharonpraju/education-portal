@@ -68,7 +68,7 @@ $(document).ready(function(){
       url:'table_action.php',
       columns:{
        identifier:[0, 'id'],
-       editable: [[1, 'name'], [2, 'position'], [3, 'department'], [4, 'email'], [5, 'ban']]
+       editable: [[1, 'name'], [2, 'who'], [3, 'department'], [4, 'email'], [5, 'ban_status']]
       },
       restoreButton:false,
       onSuccess:function(data, textStatus, jqXHR)
