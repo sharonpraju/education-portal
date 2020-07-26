@@ -7,6 +7,7 @@ function OpenCon()
  $dbpass = 'x3v$ANKgwm52gbjz';
  $db = "delta_db";
 
+ 
  //$dbhost = "127.0.0.1:3306";
  //$dbuser = "root";
  //$dbpass = '';
