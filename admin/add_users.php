@@ -75,14 +75,88 @@
 
         <?php
 
-        ///$user ="admin" 
+        ///$user ="admin";
+        if($_GET['user']=="teacher")
+        {
+          echo ' <center>   <div class="col-lg-6">
+          <div class="card position-relative">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add New Teacher</h4>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <code id="PasswordError"></code>
+              </div>    <div class="block">Name:<input id="teacherName" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Email:<input id="teacherEmail" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="text" class="input-res"></div>
+              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="text" class="input-res"></div><br>
+              <form id="department_drop">
+                <label for="department">Department:</label>
+                <select id="department" name="cars">
+                  <option value="CSE">CSE</option>
+                  <option value="CSE">CSE</option>
+                
+                </select>
+            
+              </form>
+              <a href="#" class="btn btn-success btn-icon-split ">
+                <span class="icon text-white-50 bg-gradient-warning ">
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
+                </span>
+                <span class="text">Add</span>
+              </a>
+                  </li>
+                </ul>
+              </nav>
+              
+            </div>
+          </div>
+        </div></center>  ';
+        
+        }
+        
+      
+ 
+        if($_GET['user']=="student")
 
-        if($_GET['user']=="admin"){echo "i'm admin";}
-        if($_GET['user']=="teachert"){echo "i'm teacher";}
-        if($_GET['user']=="hod"){echo "i'm hod";}
-        if($_GET['user']=="student"){echo "i'm student";}
+        {
+          echo ' <center>   <div class="col-lg-6">
+          <div class="card position-relative">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add New Student</h4>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <code id="PasswordError"></code>
+              </div>    <div class="block">Name:<input id="teacherName" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Email:<input id="teacherEmail" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="password" class="input-res"></div>
+              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="password" class="input-res"></div><br>
+              <form id="department_drop">
+                <label for="cars">Department:</label>
+                <select id="cars" name="cars">
+                  <option value="CSE">CSE</option>
+                
+                </select>
+            
+              </form>
+              <a href="#" class="btn btn-success btn-icon-split ">
+                <span class="icon text-white-50 bg-gradient-warning ">
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
+                </span>
+                <span class="text">Add</span>
+              </a>
+                  </li>
+                </ul>
+              </nav>
+              
+            </div>
+          </div>
+        </div></center>  ';
         
         
+        
+        }
         
         ?>  
 
@@ -165,7 +239,7 @@
     {
       console.log()
       if(teacherEmail!="" && teacherName!="" )
-      {`  
+      {
         $.ajax(
       {
         url:"./ajax/add_users.php",
