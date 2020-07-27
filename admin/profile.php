@@ -32,7 +32,7 @@
 
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -50,7 +50,7 @@
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
