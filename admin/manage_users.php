@@ -122,14 +122,18 @@ $conn = OpenCon();
                       <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
                       <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
                       <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
-                      <td contenteditable="true"><?php 
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
                       
-                      if( $user ['ban_status'] == 1){
-                        echo '<a href="#" class="btn btn-warning btn-circle">
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
                         <i class="fas fa-exclamation-triangle"></i>
-                      </a>';}
+                      </a>';
+                    
+                    
+                    }
                       if( $user ['ban_status'] == 0 ){
-                        echo '<a href="#" class="btn btn-success btn-circle">
+                        echo '<a id="banStatus" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
                         <i class="fas fa-check"></i>
                       </a>';} 
                       
@@ -265,6 +269,26 @@ var edit_email=document.getElementById(id+"email").textContent
    console.log(result)
     }
   })
+
+}
+
+function changeStatus(id,banStatus)
+{ 
+ $.ajax({
+    url:'ajax/manage_users_edit.php',
+    type:"POST",
+    data:{
+      id:id,
+      banStatus:banStatus,
+      process:"change_id"
+      
+      },
+    success:function(result){
+   console.log(result)
+    }
+    
+  })
+location.reload()
 
 }
 
