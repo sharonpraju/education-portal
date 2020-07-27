@@ -90,7 +90,7 @@ $conn = OpenCon();
                       <th>Position</th>
                       <th>Department</th>
                       <th>Email</th>
-                      <th>Ban</th>
+                      <th>Status</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
@@ -102,7 +102,7 @@ $conn = OpenCon();
                       <th>Position</th>
                       <th>Department</th>
                       <th>Email</th>
-                      <th>Ban</th>
+                      <th>Status</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
@@ -122,7 +122,19 @@ $conn = OpenCon();
                       <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
                       <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
                       <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
-                      <td contenteditable="true"><?php echo $user ['ban_status']; ?></td>
+                      <td contenteditable="true"><?php 
+                      
+                      if( $user ['ban_status'] == 1){
+                        echo '<a href="#" class="btn btn-warning btn-circle">
+                        <i class="fas fa-exclamation-triangle"></i>
+                      </a>';}
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a href="#" class="btn btn-success btn-circle">
+                        <i class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
                       <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
                       <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
                     </tr>
