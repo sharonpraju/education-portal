@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
-<!-- hi -->
-=======
  <!-- git test --> 
->>>>>>> master
 <head>
 
   <meta charset="utf-8">
