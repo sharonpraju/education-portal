@@ -62,37 +62,37 @@
                   <form>
                     <div class="row">
                       <div class="col">
-                        <input type="text" class="form-control" placeholder="Subject Name" required>
+                        <input type="text" class="form-control" id="subject" placeholder="Subject Name" required>
                       </div>
                       <div class="col">
-                      <input type="text" class="form-control" placeholder="Description (optional)">
+                      <input type="text" class="form-control" id="description" placeholder="Description (optional)">
                       </div>
                     </div>
                     <br>
                     <div class="row">
                       <div class="form-group col-md-4 col">
                         <label for="inputState">Assign a Teacher</label>
-                        <select id="inputState" class="form-control">
+                        <select id="inputState" class="form-control" id="teacher" required>
                           <option selected value="">Choose a Teacher</option>
-                          <option></option>
+                          <option value="test">test</option>
                         </select>
                       </div>
                       <div class="col">
                         <br>
                       If the teacher is not listed. Please make sure you have added the particular teacher as a user.
-                      If you haven't done this, <a href=""> Add a teacher now</a>.
+                      If you haven't done this, <a href="add_users.php?user=teacher"> Add a teacher now</a>.
                       </div>
                     </div>
                     <div class="row">
                       <div class="col">
-                        <br>
-                        <button type="submit" class="btn btn-success btn-icon-split">
-                          <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                          </span>
-                          <span class="text">Save</span>
-                        </button>
+                        <br><a href="#" class="btn btn-success btn-icon-split ">
+                <span class="icon text-white-50 bg-gradient-warning ">
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
+                </span>
+                <span class="text">Add</span>
+              </a>
                       </div>
+                      <code id="txt"></code>
                     </div>
 
                   </form>
@@ -159,6 +159,54 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+
+  <script>
+  $('.text').click(function ()
+  {
+    alert("ds");
+    $('#txt').text("")
+    var subject=document.getElementById('subject').value;
+    var description=document.getElementById('description').value;
+    var teacher=document.getElementById('teacher').value
+
+      console.log()
+      if(subject!="" && teacher!="" )
+      {
+        $.ajax(
+      {
+        url:"./process/add-subject.php",
+        type:"POST",
+
+        data:
+        {
+          subject:subject,
+          description:description,
+          teacher:teacher
+
+          },
+          success:function(result)
+          {
+           $('#txt').text(result)
+           
+          }
+      }
+
+    ),
+    $('#LoadBtn').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
+    setTimeout(function () {
+      //If true
+            $('#LoadBtn').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
+        }, 2000);
+        //if error change button "bg-gradient-warning "
+      }
+      else
+      {
+        $('#txt').text('All Fields are Required')
+      }
+      
+
+  })
+  </script>
 
 </body>
 
