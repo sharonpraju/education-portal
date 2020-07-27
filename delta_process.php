@@ -136,7 +136,3 @@ if($input["action"] === 'edit'or 'delete')
 
 
 ?>
-
-
-
-
