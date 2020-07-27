@@ -1,5 +1,5 @@
 <?php
-include("../delta_config.php");
+include("../../delta_config.php");
 $conn = OpenCon();
 if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST['teacherPassword']) )
 {
