@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 <!-- hi -->
+=======
+ <!-- git test --> 
+>>>>>>> master
 <head>
 
   <meta charset="utf-8">
@@ -10,13 +14,28 @@
   <meta name="author" content="">
 
   <title>Dashboard</title>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <style>
+.block{
+
+  display: inline-table;
+  width: 150px;
+  padding: 3px;
+}
+.drop_pos
+{
+  padding-top: 80px;
+}
+#department_drop{
+  margin-top: 15px;
+}
+  </style>
 
 </head>
 
@@ -30,7 +49,7 @@
 
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("./includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -48,7 +67,7 @@
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("./includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
@@ -60,14 +79,16 @@
 
         <?php
 
-        ///$user ="admin"; 
+        ///$user ="admin" 
+
         if($_GET['user']=="admin"){echo "i'm admin";}
         if($_GET['user']=="teachert"){echo "i'm teacher";}
         if($_GET['user']=="hod"){echo "i'm hod";}
         if($_GET['user']=="student"){echo "i'm student";}
         
-        ?>
         
+        
+        ?>  
 
         </div>
         <!-- /.container-fluid -->
@@ -133,5 +154,63 @@
   <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
+<!--Ajax Query for Adding Teacher-->
+<script>
+  $('.text').click(function ()
+  {
+    $('#PasswordError').text("")
+    var password=document.getElementById('teacherPassword').value;
+    var confirmPass=document.getElementById('teacherPasswordConfirm').value;
+    var teacherEmail=document.getElementById('teacherEmail').value
+    var teacherName=document.getElementById('teacherName').value
+    var department=document.getElementById('department').value
+    if(password==confirmPass)
+
+    {
+      console.log()
+      if(teacherEmail!="" && teacherName!="" )
+      {
+        $.ajax(
+      {
+        url:"./ajax/add_users.php",
+        type:"POST",
+
+        data:
+        {
+          teacherName:teacherName,
+          teacherEmail:teacherEmail,
+          teacherPassword:password,
+          position:"teacher",
+          teacher_department:department
+
+          },
+          success:function(result)
+          {
+           $('#PasswordError').text(result)
+           
+          }
+      }
+
+    ),
+    $('#LoadBtn').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
+    setTimeout(function () {
+      //If true
+            $('#LoadBtn').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
+        }, 2000);
+        //if error change button "bg-gradient-warning "
+      }
+      else
+      {
+        $('#PasswordError').text('All Fields are Required')
+      }
+     
+      } else
+      {
+        $('#PasswordError').text('Passwords Must Match')
+      }
+      
+
+  })
+  </script>
 
 </html>

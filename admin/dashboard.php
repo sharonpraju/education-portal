@@ -30,7 +30,7 @@
 
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -48,7 +48,7 @@
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
@@ -72,10 +72,7 @@
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">No. of Students</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">786</div>
-                      <br>
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">No. of Students</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">No. of Manegers</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">786</div>
                     </div>
                     <div class="col-auto">
@@ -360,15 +357,9 @@
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+      
+      <?php include("includes/footer.html"); ?>
+      
 
     </div>
     <!-- End of Content Wrapper -->
