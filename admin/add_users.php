@@ -45,7 +45,7 @@
 
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("./includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -63,7 +63,7 @@
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("./includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
@@ -92,8 +92,9 @@
               <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="text" class="input-res"></div>
               <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="text" class="input-res"></div><br>
               <form id="department_drop">
-                <label for="cars">Department:</label>
-                <select id="cars" name="cars">
+                <label for="department">Department:</label>
+                <select id="department" name="cars">
+                  <option value="CSE">CSE</option>
                   <option value="CSE">CSE</option>
                 
                 </select>
@@ -132,8 +133,8 @@
                 <code id="PasswordError"></code>
               </div>    <div class="block">Name:<input id="teacherName" value="" maxlength="25" type="text" class="input-res"></div>
               <div class="block">Email:<input id="teacherEmail" value="" maxlength="25" type="text" class="input-res"></div>
-              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="text" class="input-res"></div>
-              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="text" class="input-res"></div><br>
+              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="password" class="input-res"></div>
+              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="password" class="input-res"></div><br>
               <form id="department_drop">
                 <label for="cars">Department:</label>
                 <select id="cars" name="cars">
@@ -236,6 +237,7 @@
     var confirmPass=document.getElementById('teacherPasswordConfirm').value;
     var teacherEmail=document.getElementById('teacherEmail').value
     var teacherName=document.getElementById('teacherName').value
+    var department=document.getElementById('department').value
     if(password==confirmPass)
 
     {
@@ -252,6 +254,8 @@
           teacherName:teacherName,
           teacherEmail:teacherEmail,
           teacherPassword:password,
+          position:"teacher",
+          teacher_department:department
 
           },
           success:function(result)
@@ -271,12 +275,12 @@
       }
       else
       {
-        $('#PasswordError').text('Error').fadeOut(8000)
+        $('#PasswordError').text('All Fields are Required')
       }
      
       } else
       {
-        $('#PasswordError').text('Passwords Must Match').fadeOut(8000)
+        $('#PasswordError').text('Passwords Must Match')
       }
       
 
