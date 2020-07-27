@@ -46,7 +46,7 @@ $conn = OpenCon();
    
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("./includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -64,7 +64,7 @@ $conn = OpenCon();
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("./includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
@@ -91,6 +91,8 @@ $conn = OpenCon();
                       <th>Department</th>
                       <th>Email</th>
                       <th>Ban</th>
+                      <th>Delete</th>
+                      <th>Save</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -101,6 +103,8 @@ $conn = OpenCon();
                       <th>Department</th>
                       <th>Email</th>
                       <th>Ban</th>
+                      <th>Delete</th>
+                      <th>Save</th>
                     </tr>
                   </tfoot>
                   <tbody>
