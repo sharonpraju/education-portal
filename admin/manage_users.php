@@ -113,12 +113,14 @@ $conn = OpenCon();
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
                     <tr>
-                      <td><?php echo $user ['id']; ?> </td>  
-                      <td><?php echo $user ['name']; ?> </td>
-                      <td><?php echo $user ['who']; ?></td>
-                      <td><?php echo $user ['department']; ?></td>
-                      <td><?php echo $user ['email']; ?></td>
-                      <td><?php echo $user ['ban_status']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td contenteditable="true"><?php echo $user ['ban_status']; ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
                     </tr>
                     <?php } ?>
                     
@@ -210,6 +212,49 @@ $conn = OpenCon();
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+
+
+  <script>
+function deleteItem(del_id){
+  $.ajax({
+    url:'ajax/manage_users.php',
+    type:"POST",
+    data:{id:del_id},
+    success:function(result){
+   console.log(result)
+    }
+  })
+
+  location.reload();
+
+}
+function editItem(id){
+var edit_name=document.getElementById(id+"name").textContent
+var edit_who=document.getElementById(id+"who").textContent
+var edit_department=document.getElementById(id+"department").textContent
+var edit_email=document.getElementById(id+"email").textContent
+
+  $.ajax({
+    url:'ajax/manage_users_edit.php',
+    type:"POST",
+    data:{
+      id:id,
+      edit_name:edit_name,
+      edit_department:edit_department,
+      edit_who:edit_who,
+      edit_email:edit_email
+      
+      },
+    success:function(result){
+   console.log(result)
+    }
+  })
+
+}
+
+
+
+  </script>
 
 </body>
 
