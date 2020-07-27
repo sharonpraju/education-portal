@@ -69,7 +69,7 @@
                 <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
               </div>
               <h5 class="mb-1 text-white">Jhon Doe</h5>
-              <h6 class="text-light">UI/UX Engineer</h6>
+              <h6 class="text-light">Principal</h6>
              </div>
               <div class="card-body">
                 <ul class="list-group shadow-none">
@@ -93,11 +93,11 @@
                 </li>
                 <li class="list-group-item">
                   <div class="list-icon">
-                    <i class="fa fa-globe"></i>
+                    <i class="fa fa-book"></i>
                   </div>
                   <div class="list-details">
-                    <span>www.example.com</span>
-                    <small>Website Address</small>
+                    <span>Computer Science</span>
+                    <small>Depatment</small>
                   </div>
                 </li>
                 </ul>
@@ -144,29 +144,18 @@
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>About</h6>
+                            <h6>Name</h6>
                             <p>
-                                Web Designer, UI/UX Engineer
+                               name@email.com
                             </p>
-                            <h6>Hobbies</h6>
-                            <p>
-                                Indie music, skiing and hiking. I love the great outdoors.
-                            </p>
+                            <hr>
                         </div>
                         <div class="col-md-6">
-                            <h6>Recent badges</h6>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">html5</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">react</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">codeply</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">angularjs</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">css3</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">jquery</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">bootstrap</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">responsive-design</a>
-                            <hr>
-                            <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
+                            <h6>Todays Tasks</h6>
+                            
+                            <span class="badge badge-primary"><i class="fa fa-book"></i> 900 Total </span>
+                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Completed </span>
+                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Pending </span>
                         </div>
                         <div class="col-md-12">
                             <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
@@ -251,12 +240,7 @@
                                 <input class="form-control" type="text" value="Mark">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Jhonsan">
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
@@ -270,17 +254,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Website</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Department</label>
                             <div class="col-lg-9">
                                 <input class="form-control" type="url" value="">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="" placeholder="Street">
-                            </div>
-                        </div>
+                        
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-6">

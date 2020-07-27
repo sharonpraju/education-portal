@@ -165,7 +165,7 @@
     {
       console.log()
       if(teacherEmail!="" && teacherName!="" )
-      {
+      {`  
         $.ajax(
       {
         url:"./ajax/add_users.php",
