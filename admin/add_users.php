@@ -86,11 +86,11 @@
             </div>
             <div class="card-body">
               <div class="mb-3">
-                <code>.animated--grow-in</code>
-              </div>    <div class="block">Name:<input maxlength="25" type="text" class="input-res"></div>
-              <div class="block">Email:<input maxlength="25" type="text" class="input-res"></div>
-              <div class="block">Password:<input maxlength="15" type="text" class="input-res"></div>
-              <div class="block">Confirm:<input  maxlength="15" type="text" class="input-res"></div><br>
+                <code id="PasswordError"></code>
+              </div>    <div class="block">Name:<input id="teacherName" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Email:<input id="teacherEmail" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="text" class="input-res"></div>
+              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="text" class="input-res"></div><br>
               <form id="department_drop">
                 <label for="cars">Department:</label>
                 <select id="cars" name="cars">
@@ -101,7 +101,7 @@
               </form>
               <a href="#" class="btn btn-success btn-icon-split ">
                 <span class="icon text-white-50 bg-gradient-warning ">
-                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i class="fas fa-check"></i>
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
                 </span>
                 <span class="text">Add</span>
               </a>
@@ -118,9 +118,50 @@
         
       
  
-        if($_GET['user']=="student"){echo "i'm student";}
+        if($_GET['user']=="student")
+
+        {
+          echo ' <center>   <div class="col-lg-6">
+
+          <div class="card position-relative">
+            <div class="card-header py-3">
+              <h4 class="m-0 font-weight-bold text-primary">Add New Student</h4>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <code id="PasswordError"></code>
+              </div>    <div class="block">Name:<input id="teacherName" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Email:<input id="teacherEmail" value="" maxlength="25" type="text" class="input-res"></div>
+              <div class="block">Password:<input id="teacherPassword" value="" maxlength="15" type="text" class="input-res"></div>
+              <div class="block">Confirm:<input id="teacherPasswordConfirm" value="" maxlength="15" type="text" class="input-res"></div><br>
+              <form id="department_drop">
+                <label for="cars">Department:</label>
+                <select id="cars" name="cars">
+                  <option value="CSE">CSE</option>
+                
+                </select>
+            
+              </form>
+              <a href="#" class="btn btn-success btn-icon-split ">
+                <span class="icon text-white-50 bg-gradient-warning ">
+                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
+                </span>
+                <span class="text">Add</span>
+              </a>
+                  </li>
+                </ul>
+              </nav>
+              
+            </div>
+          </div>
+
+        </div></center>  ';
         
-        ?>
+        
+        
+        }
+        
+        ?>  
 
         </div>
         <!-- /.container-fluid -->
@@ -190,12 +231,55 @@
 <script>
   $('.text').click(function ()
   {
-    $('i').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
+    $('#PasswordError').text("")
+    var password=document.getElementById('teacherPassword').value;
+    var confirmPass=document.getElementById('teacherPasswordConfirm').value;
+    var teacherEmail=document.getElementById('teacherEmail').value
+    var teacherName=document.getElementById('teacherName').value
+    if(password==confirmPass)
+
+    {
+      console.log()
+      if(teacherEmail!="" && teacherName!="" )
+      {
+        $.ajax(
+      {
+        url:"./ajax/add_users.php",
+        type:"POST",
+
+        data:
+        {
+          teacherName:teacherName,
+          teacherEmail:teacherEmail,
+          teacherPassword:password,
+
+          },
+          success:function(result)
+          {
+           $('#PasswordError').text(result)
+           
+          }
+      }
+
+    ),
+    $('#LoadBtn').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
     setTimeout(function () {
       //If true
-            $('i').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
+            $('#LoadBtn').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
         }, 2000);
         //if error change button "bg-gradient-warning "
+      }
+      else
+      {
+        $('#PasswordError').text('Error').fadeOut(8000)
+      }
+     
+      } else
+      {
+        $('#PasswordError').text('Passwords Must Match').fadeOut(8000)
+      }
+      
+
   })
   </script>
 
