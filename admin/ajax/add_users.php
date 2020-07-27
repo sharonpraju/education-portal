@@ -7,14 +7,17 @@ if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST[
   $teacherEmail=mysqli_real_escape_string($conn,$_POST['teacherEmail']);
   $password=mysqli_real_escape_string($conn,$_POST['teacherPassword']);
 
-  $sql_validator="SELECT * FROM teacher_info WHERE teacher_name='$teacherName' AND teacher_email='$teacherEmail' ";
+  $sql_validator="SELECT * FROM users WHERE name='$teacherName' AND email='$teacherEmail' ";
   $result=$conn->query($sql_validator); //Execute the SQL in DB
   if($result-> num_rows > 0) //Check FOr ROWS
   {
     echo "Teacher Already Exists";
   }
   else{
-    $SQL="INSERT INTO `teacher_info` (`uid`, `teacher_name`, `teacher_email`, `teacher_password`, `teacher_status`) VALUES (NULL, '$teacherName', '$teacherEmail', '$password', '1')";
+    $SQL="  INSERT INTO `users` (`id`, `name`, `who`, `department`, `email`, `ban_status`, `profile_url`, `pass_hash`, `last_updated`, `status`, `comments`) VALUES (NULL, '$teacherName', 'teacher', '', 'asd@asd.comfk', '0', '', '', current_timestamp(), '1', '');";
+    
+  
+    
     if($conn->query($SQL))
     {
       echo "Added Successfully";
