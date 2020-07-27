@@ -42,11 +42,20 @@
       </div>
     </li>
 
-    <!-- Nav Item - Add Subject -->
+    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
-      <a class="nav-link" href="./add-subject.html">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Charts</span></a>
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubjects" aria-expanded="true" aria-controls="collapseUtilities">
+        <i class="fas fa-fw fa-wrench"></i>
+        <span>Manage Subjects</span>
+      </a>
+      <div id="collapseSubjects" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Manage Subjects</h6>
+          <a class="collapse-item" href="add-subject.php">Add New Subject</a>
+          <a class="collapse-item" href="show-subjects.php">Show <small>or</small> Edit Subjects</a>
+         
+        </div>
+      </div>
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->

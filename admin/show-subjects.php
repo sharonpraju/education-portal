@@ -9,14 +9,17 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Add Subject</title>
+  <title>Show Subjects</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -25,16 +28,9 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-
-
-
     <!-- Sidebar -->
     <?php include("includes/sidebar.html"); ?>
     <!-- End of Sidebar -->
-
-
-
-
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -45,73 +41,71 @@
         <!-- Topbar -->
         <?php include("includes/topbar.html"); ?>
         <!-- End of Topbar -->
-        
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          <div class="d-flex justify-content-center">
 
-            <!--add teacher-->
-            <div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Add Subject</h6>
-                </div>
-                <!-- Card Body -->
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col">
-                        <input type="text" class="form-control" placeholder="Subject Name" required>
-                      </div>
-                      <div class="col">
-                      <input type="text" class="form-control" placeholder="Description (optional)">
-                      </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                      <div class="form-group col-md-4 col">
-                        <label for="inputState">Assign a Teacher</label>
-                        <select id="inputState" class="form-control">
-                          <option selected value="">Choose a Teacher</option>
-                          <option></option>
-                        </select>
-                      </div>
-                      <div class="col">
-                        <br>
-                      If the teacher is not listed. Please make sure you have added the particular teacher as a user.
-                      If you haven't done this, <a href=""> Add a teacher now</a>.
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <br>
-                        <button type="submit" class="btn btn-success btn-icon-split">
-                          <span class="icon text-white-50">
-                            <i class="fas fa-check"></i>
-                          </span>
-                          <span class="text">Save</span>
-                        </button>
-                      </div>
-                    </div>
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
-                  </form>
-                </div>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Ban</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Ban</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                    </tr>
+                    
+ 
+                  </tbody>
+                </table>
               </div>
             </div>
-            <!--add teacher-->
-
           </div>
+
         </div>
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
-      
+
       <!-- Footer -->
-      <?php include("includes/footer.html"); ?>
-      <!-- Footer -->
-      
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -154,13 +148,12 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
 </html>
-
