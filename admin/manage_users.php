@@ -126,15 +126,15 @@ $conn = OpenCon();
                       
                       if( $user ['ban_status'] == 1)
                       {
-                        echo '<a id="banStatus" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
-                        <i class="fas fa-exclamation-triangle"></i>
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
                       </a>';
                     
                     
                     }
                       if( $user ['ban_status'] == 0 ){
-                        echo '<a id="banStatus" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
-                        <i class="fas fa-check"></i>
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
                       </a>';} 
                       
                       
@@ -274,6 +274,19 @@ var edit_email=document.getElementById(id+"email").textContent
 
 function changeStatus(id,banStatus)
 { 
+  if(banStatus==1)
+  {
+    $('#banStatus'+id).removeClass('btn btn-warning btn-circle').addClass('btn btn-success btn-circle')
+$('#banStatus_itag'+id).removeClass('fas fa-exclamation-triangle').addClass('fas fa-check')
+  }
+  else
+  {
+    $('#banStatus'+id).removeClass('btn btn-success btn-circle').addClass('btn btn-warning btn-circle')
+$('#banStatus_itag'+id).removeClass('fas fa-check').addClass('fas fa-exclamation-triangle')
+
+  }
+
+  
  $.ajax({
     url:'ajax/manage_users_edit.php',
     type:"POST",
@@ -288,7 +301,7 @@ function changeStatus(id,banStatus)
     }
     
   })
-location.reload()
+
 
 }
 
