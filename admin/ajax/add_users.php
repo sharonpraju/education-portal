@@ -3,8 +3,8 @@ include("../../delta_config.php");
 $conn = OpenCon();
 if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST['teacherPassword']) )
 {
-  $teacherName=mysqli_real_escape_string($conn,$_POST['teacherName']);
-  $teacherEmail=mysqli_real_escape_string($conn,$_POST['teacherEmail']);
+  $teacherName=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherName']));
+  $teacherEmail=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherEmail']));
   $password=md5(mysqli_real_escape_string($conn,$_POST['teacherPassword']));
   $position=mysqli_real_escape_string($conn,$_POST['position']);
   $teacher_department=mysqli_real_escape_string($conn,$_POST['teacher_department']);
