@@ -1,7 +1,9 @@
 <?php
-
+session_start();
 include("delta_config.php");
 //Database processing in this common file
+
+
 
 
 /////////////////////Functions Start//////////////////////////////////
@@ -46,10 +48,11 @@ if (isset($_POST['process']))
 { 
     
     $process=$_POST['process'];
-
+    
 
     if($process=="admin_login")
     {
+        
         $email=$_POST['email'];
         $password=$_POST['password'];
         $hash_pass=adminLogin($email);

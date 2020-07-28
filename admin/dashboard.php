@@ -2,6 +2,16 @@
 <html lang="en">
 
 <head>
+  
+<?php 
+  session_start();
+  
+  if( !isset( $_SESSION['admin'] ) ) {
+    echo("Your session has expired");
+    
+    header('Location: index.php');
+ }else { ?>
+
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -411,3 +421,5 @@
 </body>
 
 </html>
+
+ <?php } ?>
