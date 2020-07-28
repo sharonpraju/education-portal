@@ -60,6 +60,7 @@ if (isset($_POST['process']))
         $password=$_POST['password'];
         $hash_pass=adminLogin($email);
         $id=getID($email);
+        echo "<script>alert(fa-stack-1x)</script>";
         if(password_verify($password, $hash_pass)) {
         $_SESSION['admin']=$id;
         header('Location: admin/dashboard.php');
