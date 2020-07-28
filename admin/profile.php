@@ -259,7 +259,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="edit">
-                    <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
+                    <form action="process/profile_update.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"><?php echo $data['name'];?></label>
                             <div class="col-lg-9">
