@@ -71,8 +71,8 @@
                     <br>
                     <div class="row">
                       <div class="form-group col-md-4 col">
-                        <label for="inputState">Assign a Teacher</label>
-                        <select id="inputState" class="form-control" id="teacher" required>
+                        <label for="teacher">Assign a Teacher</label>
+                        <select id="teacher" class="form-control"  required>
                           <option selected value="">Choose a Teacher</option>
                           <option value="test">test</option>
                         </select>
@@ -169,35 +169,21 @@
     var description=document.getElementById('description').value;
     var teacher=document.getElementById('teacher').value
 
-      console.log()
       if(subject!="" && teacher!="" )
       {
-        $.ajax(
-      {
-        url:"./process/add-subject.php",
-        type:"POST",
-
-        data:
-        {
-          subject:subject,
-          description:description,
-          teacher:teacher
-
-          },
-          success:function(result)
-          {
-           $('#txt').text(result)
-           
-          }
-      }
-
-    ),
-    $('#LoadBtn').removeClass('fas fa-check').addClass('fa fa-circle-o-notch fa-spin')
-    setTimeout(function () {
-      //If true
-            $('#LoadBtn').removeClass('fa fa-circle-o-notch fa-spin').addClass('fas fa-check');
-        }, 2000);
-        //if error change button "bg-gradient-warning "
+          $.ajax
+          ({ 
+              url: 'ajax/add-subject.php',
+              data: {"subject": subject, "description": description, "teacher": teacher},
+              type: 'post',
+              success: function(result)
+              {
+                $('#txt').text(result)
+              },
+              error:function(result){
+                alert(result); //===Show Error Message====
+              }
+          });
       }
       else
       {

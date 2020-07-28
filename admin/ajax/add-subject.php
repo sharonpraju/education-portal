@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!empty($_POST['subject']) && !empty($_POST['description']) && !empty($_POST['teacher'])) {
 
 include("../../delta_config.php");
@@ -13,19 +14,17 @@ $admin_id=$_SESSION['admin'];
     VALUES ('$subject', '$description', '$teacher_id', current_timestamp(), '$admin_id')";
     if($conn->query($sql))
     {
-        header('Location: ./add-subject.php?response=1');
+        echo "Added Successfully";
     }
     else
     {
       echo "Error : Database Processing Failed <br> Somethig Went Wrong";
-      header('Location: ./add-subject.php?response=0');
     }
     
 }
 else
 {
     echo "Error : Database Processing Failed <br> Empty Data Send";
-    header('Location: ./add-subject.php?response=2');
 }
 
 ?>

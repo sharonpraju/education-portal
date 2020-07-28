@@ -65,23 +65,6 @@ if (isset($_POST['process']))
     }
 
 
-    if($process=="admin_login")
-    {
-        $email=$_POST['email'];
-        $password=$_POST['password'];
-        $hash_pass=adminLogin($email);
-        if(password_verify($password, $hash_pass)) {
-        $_SESSION['admin']=$email;
-        header('Location: admin/dashboard.php');
-        exit;
-        }
-        else
-        {
-            echo"Wrong Username / Password";
-        }
-    }
-
-
 }
 
 //////////////////////////////////////////////////////////////////////
