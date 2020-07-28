@@ -45,7 +45,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell fa-fw"></i>
           <!-- Counter - Alerts -->
-          <span class="badge badge-danger badge-counter">3+</span>
+          <span id="displaystatus" class="badge badge-danger badge-counter" style="font-size: 15px"></span>
         </a>
         <!-- Dropdown - Alerts -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -103,7 +103,7 @@
           </h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
-              <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+              <img class="rounded-circle" src='img/profile/<?php echo $id; ?>.jpg' alt="">
               <div class="status-indicator bg-success"></div>
             </div>
             <div class="font-weight-bold">
@@ -151,7 +151,7 @@
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-          <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+          <img class="img-profile rounded-circle" src='../<?php echo $data['profile_url'];?>'>
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -176,5 +176,75 @@
       </li>
 
     </ul>
+     <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="javascript:logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div> <script src="./vendor/jquery/jquery.min.js"></script>
+  <script>
+    var current_notification
+    var i=1;
+    (function getCurrentNotification(){
+  $.ajax({
+    url:"./ajax/notification.php",
+    success:function(result){
+      current_notification=result
+    }
+  })
 
+})();
+    
+    (function getNewUpdate() {
+  $.ajax({
+    url: './ajax/notification.php', 
+    success: function(result) {
+      if(current_notification!=result)
+      {
+      $('#displaystatus').text(i)
+      i++
+      current_notification=result
+      }
+   
+    },
+    complete: function() {
+      // Schedule the next request when the current one's complete
+      setTimeout(getNewUpdate, 3000);
+    }
+  });
+})();
+
+
+
+
+
+    function logout(){
+      $.ajax({
+        url:'ajax/logout.php',
+        type:"POST",
+        data:{logout:'logout'},
+        success:function(result){
+          console.log(result)
+          location.replace('index.php')
+        },
+        error:function(result){
+          console.log(result)
+        }
+      })
+      }
+
+
+  </script>
   </nav>

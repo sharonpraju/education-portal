@@ -2,7 +2,29 @@
 <html lang="en">
  <!-- git test --> 
 <head>
+<?php 
+ include("includes/session.php");
+ include("../delta_config.php");
 
+ function profile_list($id)
+{
+  $conn = OpenCon();
+  $sql = "SELECT * FROM users where id=? ";
+   // SQL with parameters
+  $stmt = $conn->prepare($sql); 
+  $stmt->bind_param("s", $id);
+  $stmt->execute();
+  $result = $stmt->get_result(); // get the mysqli result
+  $data = $result->fetch_assoc(); // fetch data
+  return $data;
+  CloseCon($conn);
+}
+
+   
+  $id = $_SESSION['admin'];
+  $data = profile_list($id);
+  
+  ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,7 +54,11 @@
 
     <!-- Sidebar -->
     
-    <?php include("sidebar.html"); ?>
+    <?php include("includes/sidebar.html"); 
+    
+    
+    
+    ?>
 
     <!-- End of Sidebar -->
 
@@ -50,7 +76,7 @@
 
 
         <!-- Topbar -->
-        <?php include("topbar.html"); ?>
+        <?php include("includes/topbar.html"); ?>
         <!-- End of Topbar -->
 
 
@@ -66,10 +92,10 @@
             <div class="card">
               <div class="card-body text-center bg-primary rounded-top">
                <div class="user-box">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+                <img src='../<?php echo $data['profile_url'];?>' alt="user avatar">
               </div>
-              <h5 class="mb-1 text-white">Jhon Doe</h5>
-              <h6 class="text-light">UI/UX Engineer</h6>
+              <h5 class="mb-1 text-white"><?php echo $data['name'];?></h5>
+              <h6 class="text-light"><?php echo $data['who'];?></h6>
              </div>
               <div class="card-body">
                 <ul class="list-group shadow-none">
@@ -78,7 +104,7 @@
                     <i class="fa fa-phone-square"></i>
                   </div>
                   <div class="list-details">
-                    <span>9910XXXXXX</span>
+                    <span><?php echo $data['phone'];?></span>
                     <small>Mobile Number</small>
                   </div>
                 </li>
@@ -87,17 +113,17 @@
                     <i class="fa fa-envelope"></i>
                   </div>
                   <div class="list-details">
-                    <span>info@example.com</span>
+                    <span><?php echo $data['email'];?></span>
                     <small>Email Address</small>
                   </div>
                 </li>
                 <li class="list-group-item">
                   <div class="list-icon">
-                    <i class="fa fa-globe"></i>
+                    <i class="fa fa-book"></i>
                   </div>
                   <div class="list-details">
-                    <span>www.example.com</span>
-                    <small>Website Address</small>
+                    <span><?php echo $data['department'];?></span>
+                    <small>Depatment</small>
                   </div>
                 </li>
                 </ul>
@@ -144,29 +170,18 @@
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>About</h6>
+                            <h6><?php echo $data['name'];?></h6>
                             <p>
-                                Web Designer, UI/UX Engineer
+                            <?php echo $data['email'];?>
                             </p>
-                            <h6>Hobbies</h6>
-                            <p>
-                                Indie music, skiing and hiking. I love the great outdoors.
-                            </p>
+                            <hr>
                         </div>
                         <div class="col-md-6">
-                            <h6>Recent badges</h6>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">html5</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">react</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">codeply</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">angularjs</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">css3</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">jquery</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">bootstrap</a>
-                            <a href="javascript:void();" class="badge badge-dark badge-pill">responsive-design</a>
-                            <hr>
-                            <span class="badge badge-primary"><i class="fa fa-user"></i> 900 Followers</span>
-                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Forks</span>
-                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Views</span>
+                            <h6>Todays Tasks</h6>
+                            
+                            <span class="badge badge-primary"><i class="fa fa-book"></i> 900 Total </span>
+                            <span class="badge badge-success"><i class="fa fa-cog"></i> 43 Completed </span>
+                            <span class="badge badge-danger"><i class="fa fa-eye"></i> 245 Pending </span>
                         </div>
                         <div class="col-md-12">
                             <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Activity</h5>
@@ -244,76 +259,54 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="edit">
-                    <form>
+                    <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <label class="col-lg-3 col-form-label form-control-label"><?php echo $data['name'];?></label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Mark">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Jhonsan">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="email" value="mark@example.com">
+                                <input class="form-control" name='name' type="text" value="<?php echo $data['name'];?>">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="file">
+                                <input class="form-control" name='fileToUpload' type="file">
                             </div>
                         </div>
+                        <input name="process" value="profile_edit" hidden readonly>
+                        <input name="id" value="<?php echo $id ;?>" hidden readonly>
+                        
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Website</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Department</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="url" value="">
+                                <input class="form-control" name ='department' type="text" value="<?php echo $data['department'];?>">
                             </div>
                         </div>
+
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Address</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Phone</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="" placeholder="Street">
+                                <input class="form-control" name ='phone' type="text" value="<?php echo $data['phone'];?>">
                             </div>
                         </div>
+                        
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-6">
-                                <input class="form-control" type="text" value="" placeholder="City">
-                            </div>
-                            <div class="col-lg-3">
-                                <input class="form-control" type="text" value="" placeholder="State">
-                            </div>
-                        </div>
-                       
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
+                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="jhonsanmark">
+                                <input class="form-control" name ='email' type="email" value="<?php echo $data['email'];?>">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Password</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input class="form-control"  name='password' type="password" value="**************">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
                                 <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save Changes">
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
                             </div>
                         </div>
                     </form>
@@ -354,24 +347,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -393,3 +369,4 @@
 </body>
 
 </html>
+ 

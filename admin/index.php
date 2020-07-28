@@ -2,6 +2,14 @@
 <html lang="en">
 
 <head>
+  <?php 
+  session_start();
+  
+  if( isset( $_SESSION['admin'] ) ) {
+    header('Location: dashboard.php');
+ }else { ?>
+
+
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +72,7 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Forgot Password?</a>
+                    <a class="small" href="forgot-password.html">Forgot Password? </a>
                   </div>
                   <div class="text-center">
                     <a class="small" href="register.html">Create an Account!</a>
@@ -112,3 +120,4 @@
 </body>
 
 </html>
+    <?php } ?>

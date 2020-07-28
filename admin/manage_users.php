@@ -10,6 +10,11 @@ $conn = OpenCon();
 
 <head>
 
+
+<?php 
+  include("includes/session.php"); ?>
+
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -90,7 +95,7 @@ $conn = OpenCon();
                       <th>Position</th>
                       <th>Department</th>
                       <th>Email</th>
-                      <th>Ban</th>
+                      <th>Status</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
@@ -102,7 +107,7 @@ $conn = OpenCon();
                       <th>Position</th>
                       <th>Department</th>
                       <th>Email</th>
-                      <th>Ban</th>
+                      <th>Status</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
@@ -122,7 +127,23 @@ $conn = OpenCon();
                       <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
                       <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
                       <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
-                      <td contenteditable="true"><?php echo $user ['ban_status']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
                       <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
                       <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
                     </tr>
@@ -161,45 +182,10 @@ $conn = OpenCon();
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
-  <script>
-    $(document).ready(function(){
-      $('#dataTable').Tabledit({
-        url:'manage_update.php',
-        columns:{
-          identifier:[0,"id"],
-          editable:[[1,'name'], [2, 'who'], [3, 'department'], [4, 'email'], [5, 'ban_status']]
-        },
-        restoreButton:false,
-        onSuccess:function(data, textStatus, jqXHR)
-        {
-          if(data.action == 'delete')
-          {
-            $('#'+data.id).remove()
-          }
-        }
-      });
-    });
-  </script>
-  <script type="text/javascript" src="custom_table_edit.js"></script>
+
+ 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -256,6 +242,39 @@ var edit_email=document.getElementById(id+"email").textContent
 
 }
 
+function changeStatus(id,banStatus)
+{ 
+  if(banStatus==1)
+  {
+    $('#banStatus'+id).removeClass('btn btn-warning btn-circle').addClass('btn btn-success btn-circle')
+$('#banStatus_itag'+id).removeClass('fas fa-exclamation-triangle').addClass('fas fa-check')
+  }
+  else
+  {
+    $('#banStatus'+id).removeClass('btn btn-success btn-circle').addClass('btn btn-warning btn-circle')
+$('#banStatus_itag'+id).removeClass('fas fa-check').addClass('fas fa-exclamation-triangle')
+
+  }
+
+  
+ $.ajax({
+    url:'ajax/manage_users_edit.php',
+    type:"POST",
+    data:{
+      id:id,
+      banStatus:banStatus,
+      process:"change_id"
+      
+      },
+    success:function(result){
+   console.log(result)
+    }
+    
+  })
+
+
+}
+
 
 
   </script>
@@ -263,3 +282,4 @@ var edit_email=document.getElementById(id+"email").textContent
 </body>
 
 </html>
+
