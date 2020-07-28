@@ -88,7 +88,7 @@ if (isset($_POST['process']))
         $department=$_POST['department'];
         $email=$_POST['email'];
         $phone=$_POST['phone'];
-        $password=$_POST['password'];
+        $password=password_hash($_POST['password'], PASSWORD_DEFAULT);
         $id=$_POST['id'];
 
         
@@ -96,7 +96,7 @@ if (isset($_POST['process']))
        
 
         $target_dir = "admin/img/profile/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $target_file = $target_dir .time() . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
         // Check if image file is a actual image or fake image
@@ -146,13 +146,16 @@ if (isset($_POST['process']))
   
 
         $sql="UPDATE users
-        SET name = '$name' AND profile_url = '$target_file' AND department='$department' AND email='$email' AND phone='$phone' AND password=$password
-        WHERE id = $id";
+        SET name = '$name', profile_url = '$target_file',department='$department',
+         email='$email', phone='$phone', pass_hash='$password'
+        WHERE id = '$id'";
+        
         $conn = OpenCon();
         echo $sql;
         if($conn->query($sql))
         {
           echo "Added Successfully";
+          header('Location : admin/profile.php');
         }
         else{
             echo ($conn->query($sql));
