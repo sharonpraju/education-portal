@@ -46,7 +46,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+          <h1 class="h3 mb-2 text-gray-800">Subject / Courses</h1>
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
           <!-- DataTales Example -->
@@ -81,6 +81,20 @@
                       <td>System Architect</td>
                       <td>Edinburgh</td>
                       <td>61</td>
+                      <td>2011/04/25</td>
+                    </tr>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                    </tr>
+                    <tr>
+                      <td>Savy</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>62</td>
                       <td>2011/04/25</td>
                     </tr>
                     

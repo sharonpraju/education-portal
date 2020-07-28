@@ -85,14 +85,14 @@
                     </div>
                     <div class="row">
                       <div class="col">
-                        <br><a href="#" class="btn btn-success btn-icon-split ">
-                <span class="icon text-white-50 bg-gradient-warning ">
-                 <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
-                </span>
-                <span class="text">Add</span>
-              </a>
+                        <br>
+                        <a href="#" class="btn btn-success btn-icon-split ">
+                          <span class="icon text-white-50 bg-gradient-warning ">
+                            <i id="LoadBtn" class="fas fa-check"></i>
+                          </span> <span class="text">Add</span>
+                        </a>
+                        &nbsp; &nbsp;<code id="txt"></code>
                       </div>
-                      <code id="txt"></code>
                     </div>
 
                   </form>
@@ -163,7 +163,6 @@
   <script>
   $('.text').click(function ()
   {
-    alert("ds");
     $('#txt').text("")
     var subject=document.getElementById('subject').value;
     var description=document.getElementById('description').value;
@@ -171,6 +170,7 @@
 
       if(subject!="" && teacher!="" )
       {
+        $('#txt').text("Processing...")
           $.ajax
           ({ 
               url: 'ajax/add-subject.php',

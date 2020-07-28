@@ -10,21 +10,21 @@ $description=mysqli_real_escape_string($conn,$_POST['description']);
 $teacher_id=mysqli_real_escape_string($conn,$_POST['teacher']);
 $admin_id=$_SESSION['admin'];
 
-    $sql="INSERT INTO 'subjects' ('name', 'description', 'teacher', 'last_updated', 'updated_by')
-    VALUES ('$subject', '$description', '$teacher_id', current_timestamp(), '$admin_id')";
+    $sql="INSERT INTO subjects (id, name, description, teacher, last_updated, updated_by)
+    VALUES (NULL, '$subject', '$description', '$teacher_id', current_timestamp(), '$admin_id')";
     if($conn->query($sql))
     {
         echo "Added Successfully";
     }
     else
     {
-      echo "Error : Database Processing Failed <br> Somethig Went Wrong";
+      echo "Error : Somethig Went Wrong";
     }
     
 }
 else
 {
-    echo "Error : Database Processing Failed <br> Empty Data Send";
+    echo "Error : Somethig Went Wrong";
 }
 
 ?>
