@@ -109,16 +109,15 @@ $conn = OpenCon();
                   </tfoot>
                   <tbody>
                   <?php 
-                    $sql_query = "SELECT id, name, description, teacher FROM subjects WHERE status='1'";
+                    $sql_query = "SELECT id, name, description, teacher, teacher_id FROM subjects WHERE status='1'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $row = mysqli_fetch_assoc($resultset) ) { ?>
                     <tr id="tr_<?php echo $row ['id']; ?>">
-                      <td id="<?php echo $row ['id']; ?>name" contenteditable="true"><?php echo $row ['name']; ?> </td>
-                      <td id="<?php echo $row ['id']; ?>description" contenteditable="true"><?php echo $row ['description']; ?></td>
-                      <td id="<?php echo $row ['id']; ?>teacher"><?php echo $row ['teacher']; ?>
-                      </td>
+                      <td id="name_<?php echo $row ['id']; ?>" contenteditable="true"><?php echo $row ['name']; ?> </td>
+                      <td id="description_<?php echo $row ['id']; ?>" contenteditable="true"><?php echo $row ['description']; ?></td>
+                      <td id="teacher_<?php echo $row ['id']; ?>" class="<?php echo $row ['teacher_id']; ?>"><?php echo $row ['teacher']; ?></td>
                       <td>
-                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#teacherModal">
+                        <a class="btn btn-info btn-sm text-white" onclick="changeTeacher(<?php echo $row ['id']; ?>)" data-toggle="modal" data-target="#teacherModal">
                           Change Teacher
                         </a>
                       </td>
@@ -139,13 +138,7 @@ $conn = OpenCon();
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
+      <?php include("includes/footer.html"); ?>
       <!-- End of Footer -->
 
     </div>
@@ -159,6 +152,11 @@ $conn = OpenCon();
     <i class="fas fa-angle-up"></i>
   </a>
 
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
+
   <!-- Teacher Modal-->
   <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -169,24 +167,30 @@ $conn = OpenCon();
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select a teacher from the list.<br>If the teacher is not listed. Please make sure you have added the particular teacher as a user. If you haven't done this, Add a teacher now.
+        <div class="modal-body">
+            <select class="form-control" id="teacher_select">
             <?php 
                     $sql_query = "SELECT id, name, department FROM users WHERE ban_status='0'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $row = mysqli_fetch_assoc($resultset) ) { ?>
-                    <select>
-                    <option><?php echo$row['name']; echo"( ".$row['department']." )"; ?></option>
-                    <option> </option>
-                    </select>
+                    <option value="<?php echo$row['id'];?>"><?php echo$row['name']; echo" ( ".$row['department']." )"; ?></option>
             <?php } ?>
+            </select>
+            <br>
+            Select a teacher from the list. If the teacher is not listed. Make sure you have added the particular teacher as a user. If you haven't done this, Add a teacher now.
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary text-white" data-dismiss="modal" onclick="changeApply()">Apply</a>
         </div>
       </div>
     </div>
   </div>
+
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
+  <!--////////////////////////////////////-->
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -244,20 +248,43 @@ $conn = OpenCon();
 
 
     function editItem(id){
-    var subject=document.getElementById(id+"name").textContent
-    var description=document.getElementById(id+"who").textContent
-    var teacher=document.getElementById(id+"department").textContent
+      var subject=document.getElementById("name_"+id).textContent;
+      var description=document.getElementById("description_"+id).textContent;
+      var teacher=document.getElementById("teacher_"+id).textContent;
+      var teacher_id=$("#teacher_"+id).attr("class");
+      console.log(subject);
+      console.log(description);
+      console.log(teacher);
+      console.log( teacher_id);
     
       $.ajax({
         url:'ajax/edit_subject.php',
         type:"POST",
-        data:{id:id, subject:subject, teacher:teacher, description:description},
+        data:{id:id, subject:subject, description:description, teacher:teacher, teacher_id:teacher_id},
         success:function(result){
           console.log(result)
         }
       })
     
     }
+
+    var teacher_element;
+    function changeTeacher(id){
+      teacher_element="teacher_"+id;
+      console.log(teacher_element);
+    }
+
+    function changeApply(){
+      var id=$("#teacher_select").val();
+      var changed_teacher=$('#teacher_select option:selected').text();
+      console.log(id);
+      console.log(changed_teacher);
+      $('#'+teacher_element).text(changed_teacher);
+      $('#'+teacher_element).removeClass();
+      $('#'+teacher_element).addClass(id);
+    }
+
+
   </script>
 
 </body>
