@@ -204,7 +204,7 @@ $conn = OpenCon();
   {
     var subject=document.getElementById('subject').value;
     var description=document.getElementById('description').value;
-    var teacher=document.getElementById('teacher').textContent;
+    var teacher=$('#teacher option:selected').text();
     var teacher_id=document.getElementById('teacher').value;
 
       if(subject!="" && teacher!="" )
