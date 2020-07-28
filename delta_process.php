@@ -10,26 +10,26 @@ include("delta_config.php");
 function adminLogin($email)
 {
   $conn = OpenCon();
-  $sql = "SELECT password FROM delta_admin_config where email=? AND status='1'"; // SQL with parameters
+  $sql = "SELECT pass_hash FROM users where email=? AND status='1'"; // SQL with parameters
   $stmt = $conn->prepare($sql); 
   $stmt->bind_param("s", $email);
   $stmt->execute();
   $result = $stmt->get_result(); // get the mysqli result
   $data = $result->fetch_assoc(); // fetch data
-    return $data['password'];
+    return $data['pass_hash'];
     CloseCon($conn);
 }
 
-function addSubject($email)
+function getID($email)
 {
   $conn = OpenCon();
-  $sql = "SELECT password FROM delta_admin_config where email=? AND status='1'"; // SQL with parameters
+  $sql = "SELECT id FROM users where email=? AND status='1'"; // SQL with parameters
   $stmt = $conn->prepare($sql); 
   $stmt->bind_param("s", $email);
   $stmt->execute();
   $result = $stmt->get_result(); // get the mysqli result
   $data = $result->fetch_assoc(); // fetch data
-    return $data['password'];
+    return $data['id'];
     CloseCon($conn);
 }
 
@@ -53,25 +53,9 @@ if (isset($_POST['process']))
         $email=$_POST['email'];
         $password=$_POST['password'];
         $hash_pass=adminLogin($email);
+        $id=getID($email);
         if(password_verify($password, $hash_pass)) {
-        $_SESSION['admin']=$email;
-        header('Location: admin/dashboard.php');
-        exit;
-        }
-        else
-        {
-            echo"Wrong Username / Password";
-        }
-    }
-
-
-    if($process=="admin_login")
-    {
-        $email=$_POST['email'];
-        $password=$_POST['password'];
-        $hash_pass=adminLogin($email);
-        if(password_verify($password, $hash_pass)) {
-        $_SESSION['admin']=$email;
+        $_SESSION['admin']=$id;
         header('Location: admin/dashboard.php');
         exit;
         }
