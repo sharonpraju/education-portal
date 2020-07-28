@@ -4,8 +4,26 @@
 <head>
 <?php 
  include("includes/session.php");
+ include("../delta_config.php");
+
+ function profile_list($id)
+{
+  $conn = OpenCon();
+  $sql = "SELECT * FROM users where id=? ";
+   // SQL with parameters
+  $stmt = $conn->prepare($sql); 
+  $stmt->bind_param("s", $id);
+  $stmt->execute();
+  $result = $stmt->get_result(); // get the mysqli result
+  $data = $result->fetch_assoc(); // fetch data
+  return $data;
+  CloseCon($conn);
+}
+
    
-  $id = $_SESSION['admin']; 
+  $id = $_SESSION['admin'];
+  $data = profile_list($id);
+  
   ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,10 +92,10 @@
             <div class="card">
               <div class="card-body text-center bg-primary rounded-top">
                <div class="user-box">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user avatar">
+                <img src='img/profile/<?php echo $id; ?>.jpg' alt="user avatar">
               </div>
-              <h5 class="mb-1 text-white">Jhon Doe</h5>
-              <h6 class="text-light">Principal</h6>
+              <h5 class="mb-1 text-white"><?php echo $data['name'];?></h5>
+              <h6 class="text-light"><?php echo $data['who'];?></h6>
              </div>
               <div class="card-body">
                 <ul class="list-group shadow-none">
@@ -86,7 +104,7 @@
                     <i class="fa fa-phone-square"></i>
                   </div>
                   <div class="list-details">
-                    <span>9910XXXXXX</span>
+                    <span><?php echo $data['phone'];?></span>
                     <small>Mobile Number</small>
                   </div>
                 </li>
@@ -95,7 +113,7 @@
                     <i class="fa fa-envelope"></i>
                   </div>
                   <div class="list-details">
-                    <span>info@example.com</span>
+                    <span><?php echo $data['email'];?></span>
                     <small>Email Address</small>
                   </div>
                 </li>
@@ -104,7 +122,7 @@
                     <i class="fa fa-book"></i>
                   </div>
                   <div class="list-details">
-                    <span>Computer Science</span>
+                    <span><?php echo $data['department'];?></span>
                     <small>Depatment</small>
                   </div>
                 </li>
@@ -152,9 +170,9 @@
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <h6>Name</h6>
+                            <h6><?php echo $data['name'];?></h6>
                             <p>
-                               name@email.com
+                            <?php echo $data['email'];?>
                             </p>
                             <hr>
                         </div>
@@ -243,64 +261,52 @@
                 <div class="tab-pane" id="edit">
                     <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">First name</label>
+                            <label class="col-lg-3 col-form-label form-control-label"><?php echo $data['name'];?></label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Mark">
+                                <input class="form-control" name='name' type="text" value="<?php echo $data['name'];?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" name='fileToUpload' type="file">
+                            </div>
+                        </div>
+                        <input name="process" value="profile_edit" hidden readonly>
+                        <input name="id" value="<?php echo $id ;?>" hidden readonly>
+                        
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Department</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" name ='department' type="text" value="<?php echo $data['department'];?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">Phone</label>
+                            <div class="col-lg-9">
+                                <input class="form-control" name ='phone' type="text" value="<?php echo $data['phone'];?>">
                             </div>
                         </div>
                         
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="email" value="mark@example.com">
+                                <input class="form-control" name ='email' type="email" value="<?php echo $data['email'];?>">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="file">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Department</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="url" value="">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-6">
-                                <input class="form-control" type="text" value="" placeholder="City">
-                            </div>
-                            <div class="col-lg-3">
-                                <input class="form-control" type="text" value="" placeholder="State">
-                            </div>
-                        </div>
-                       
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="text" value="jhonsanmark">
-                            </div>
-                        </div>
+
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Password</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input class="form-control"  name='password' type="password" value="**************">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
                                 <input type="reset" class="btn btn-secondary" value="Cancel">
-                                <input type="button" class="btn btn-primary" value="Save Changes">
+                                <input type="submit" class="btn btn-primary" value="Save Changes">
                             </div>
                         </div>
                     </form>

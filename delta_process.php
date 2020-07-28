@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include("delta_config.php");
 //Database processing in this common file
 
@@ -11,6 +11,7 @@ include("delta_config.php");
 
 function adminLogin($email)
 {
+  session_start();
   $conn = OpenCon();
   $sql = "SELECT pass_hash FROM users where email=? AND status='1'"; // SQL with parameters
   $stmt = $conn->prepare($sql); 
@@ -34,6 +35,8 @@ function getID($email)
     return $data['id'];
     CloseCon($conn);
 }
+
+
 
 //////////////////////////////////////////////////////////////////////
 /////////////////////Functions Ends///////////////////////////////////
@@ -69,6 +72,93 @@ if (isset($_POST['process']))
     }
 
 
+
+
+
+
+//////////////////////////////////////////////////////////////////////
+///////////START OF -->  Profile edit -- 
+
+
+    
+    if($process=="profile_edit")
+    {
+        $name=$_POST['name'];
+        $department=$_POST['department'];
+        $email=$_POST['email'];
+        $phone=$_POST['phone'];
+        $password=$_POST['password'];
+        $id=$_POST['id'];
+
+        
+
+       
+
+        $target_dir = "admin/img/profile/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+          $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+          if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+          } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+          }
+        }
+        
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+          // if everything is ok, try to upload file
+          } 
+        else {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+              echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            } 
+            else {
+              echo "Sorry, there was an error uploading your file.";
+            }
+          }
+  
+
+        $sql="UPDATE users
+        SET name = '$name' AND profile_url = '$target_file' AND department='$department' AND email='$email' AND phone='$phone' AND password=$password
+        WHERE id = $id";
+        $conn = OpenCon();
+        echo $sql;
+        if($conn->query($sql))
+        {
+          echo "Added Successfully";
+        }
+        else{
+            echo ($conn->query($sql));
+          }
+    }
+
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -77,49 +167,6 @@ if (isset($_POST['process']))
 
 
 
-
-//////////////////////////////////////////////////////////////////////
-///////////START OF -->  table edit delete -- manage user
-$conn = OpenCon();
-$input = filter_input_array(INPUT_POST);
-
-if($input["action"] === 'edit'or 'delete')
-{
-    if($input["action"] === 'edit')
-    {
-        $name = mysqli_real_escape_string($conn, $input["name"]);
-        $who = mysqli_real_escape_string($conn, $input["who"]);
-        $department = mysqli_real_escape_string($conn, $input["department"]);
-        $email = mysqli_real_escape_string($conn, $input["email"]);
-        $ban_status = mysqli_real_escape_string($conn, $input["ban_status"]);
-
-        $query = " UPDATE users 
-        SET 
-        name = '".$name."', 
-        who = '".$who."',
-        department = '".$department."',
-        email = '".$email."',
-        ban_status = '".$ban_status."'
-        WHERE id = '".$input["id"]."'";
-
-        mysqli_query($conn, $query);
-
-    }
-
-    if($input["action"] === 'delete')
-    {
-        $query = "
-        DELETE FROM users 
-        WHERE id = '".$input["id"]."'
-        ";
-        mysqli_query($connect, $query);
-    }
-
-    echo json_encode($input);
-
-}
-///////////END OF -->  table edit delete -- manage user
-//////////////////////////////////////////////////////////////////////
 
 
 ?>
