@@ -3,13 +3,14 @@
  <!-- git test --> 
 <head>
 <?php 
+  include("../delta_config.php");
   session_start();
   
   if( !isset( $_SESSION['admin'] ) ) {
     header('Location: index.php');
  }else { 
    
-   
+  $id = $_SESSION['admin']; 
   ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -245,7 +246,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="edit">
-                    <form>
+                    <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">First name</label>
                             <div class="col-lg-9">
