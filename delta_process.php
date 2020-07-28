@@ -51,6 +51,8 @@ if (isset($_POST['process']))
 { 
     
     $process=$_POST['process'];
+
+    /////////////////////Login//////////////////////
     
     if($process=="admin_login")
     {
@@ -72,14 +74,7 @@ if (isset($_POST['process']))
     }
 
 
-
-
-
-
-//////////////////////////////////////////////////////////////////////
-///////////START OF -->  Profile edit -- 
-
-
+    /////////////////////Profile Edit//////////////////////
     
     if($process=="profile_edit")
     {
@@ -89,11 +84,6 @@ if (isset($_POST['process']))
         $phone=$_POST['phone'];
         $password=password_hash($_POST['password'], PASSWORD_DEFAULT);
         $id=$_POST['id'];
-
-        
-
-       
-
         $target_dir = "admin/img/profile/";
         $target_file = $target_dir .time() . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
@@ -109,27 +99,22 @@ if (isset($_POST['process']))
             $uploadOk = 0;
           }
         }
-        
-
         // Check if file already exists
         if (file_exists($target_file)) {
             echo "Sorry, file already exists.";
             $uploadOk = 0;
         }
-        
         // Check file size
         if ($_FILES["fileToUpload"]["size"] > 500000) {
             echo "Sorry, your file is too large.";
             $uploadOk = 0;
         }
-        
         // Allow certain file formats
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
         && $imageFileType != "gif" ) {
             echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
             $uploadOk = 0;
         }
-
         if ($uploadOk == 0) {
             echo "Sorry, your file was not uploaded.";
           // if everything is ok, try to upload file
@@ -142,13 +127,10 @@ if (isset($_POST['process']))
               echo "Sorry, there was an error uploading your file.";
             }
           }
-  
-
         $sql="UPDATE users
         SET name = '$name', profile_url = '$target_file',department='$department',
          email='$email', phone='$phone', pass_hash='$password'
         WHERE id = '$id'";
-        
         $conn = OpenCon();
         echo $sql;
         if($conn->query($sql))
@@ -156,20 +138,12 @@ if (isset($_POST['process']))
           echo "Added Successfully";
           header('Location : admin/profile.php');
         }
-        else{
-            echo ($conn->query($sql));
-          }
+        else
+        {
+          echo ($conn->query($sql));
+        }
     }
-
-
 }
-
 //////////////////////////////////////////////////////////////////////
 /////////////////////Process Based Checking Ends//////////////////////
-
-
-
-
-
-
 ?>
