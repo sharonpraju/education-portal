@@ -92,7 +92,7 @@
             <div class="card">
               <div class="card-body text-center bg-primary rounded-top">
                <div class="user-box">
-                <img src='img/profile/<?php echo $id; ?>.jpg' alt="user avatar">
+                <img src='../<?php echo $data['profile_url'];?>' alt="user avatar">
               </div>
               <h5 class="mb-1 text-white"><?php echo $data['name'];?></h5>
               <h6 class="text-light"><?php echo $data['who'];?></h6>
@@ -259,7 +259,7 @@
                     </table>
                 </div>
                 <div class="tab-pane" id="edit">
-                    <form action="process/profile_update.php" method="POST" enctype="multipart/form-data">
+                    <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"><?php echo $data['name'];?></label>
                             <div class="col-lg-9">
