@@ -1,3 +1,8 @@
+<?php
+include("../delta_config.php");
+include("includes/session.php");
+$conn = OpenCon();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,6 +53,35 @@
         
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
+
+
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
+        <!--Hidden Warning-->
+        <div class="alert bg-danger alert-dismissible fade show" id="error_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Oops!</strong> Something Went Wrong !
+        </div>
+        <!--Hidden Warning-->
+
+        <!--Hidden Processing-->
+        <div class="alert bg-info alert-dismissible fade show" id="process_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Processing... </strong> Please Wait !
+        </div>
+        <!--Hidden Processing-->
+
+        <!--Hidden Delete Success-->
+        <div class="alert bg-success alert-dismissible fade show" id="success_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Added Successfully !</strong>
+        </div>
+        <!--Hidden Delete Success-->
+        
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
+
+
           <div class="d-flex justify-content-center">
 
             <!--add teacher-->
@@ -65,7 +99,7 @@
                         <input type="text" class="form-control" id="subject" placeholder="Subject Name" required>
                       </div>
                       <div class="col">
-                      <input type="text" class="form-control" id="description" placeholder="Description (optional)">
+                      <input type="text" class="form-control" id="description" placeholder="Description ( Eg: 2nd Standard )">
                       </div>
                     </div>
                     <br>
@@ -74,7 +108,12 @@
                         <label for="teacher">Assign a Teacher</label>
                         <select id="teacher" class="form-control"  required>
                           <option selected value="">Choose a Teacher</option>
-                          <option value="test">test</option>
+                          <?php 
+                            $sql_query = "SELECT id, name, department FROM users WHERE who='teacher' OR who='admin' AND ban_status='0'";
+                            $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                            while( $row = mysqli_fetch_assoc($resultset) ) { ?>
+                            <option value="<?php echo$row['id'];?>"><?php echo$row['name']; echo" ( ".$row['department']." )"; ?></option>
+                          <?php } ?>
                         </select>
                       </div>
                       <div class="col">
@@ -163,31 +202,44 @@
   <script>
   $('.text').click(function ()
   {
-    $('#txt').text("")
     var subject=document.getElementById('subject').value;
     var description=document.getElementById('description').value;
-    var teacher=document.getElementById('teacher').value
+    var teacher=document.getElementById('teacher').textContent;
+    var teacher_id=document.getElementById('teacher').value;
 
       if(subject!="" && teacher!="" )
       {
-        $('#txt').text("Processing...")
+        $("#error_alert").css("display", "none");// To hide error
+        $("#success_alert").css("display", "none");// To hide success
+        $("#process_alert").css("display", "block");// To display processing
           $.ajax
           ({ 
               url: 'ajax/add-subject.php',
-              data: {"subject": subject, "description": description, "teacher": teacher},
+              data: {"subject": subject, "description": description, "teacher": teacher, "teacher_id": teacher_id},
               type: 'post',
-              success: function(result)
-              {
-                $('#txt').text(result)
+              success:function(result){
+                console.log(result);
+                if(result==1) //to check it is deleted
+                {
+                  $("#process_alert").css("display", "none");// To hide processing
+                  $("#success_alert").css("display", "block");// To display success
+                }
+                else//if not deleted (not returned 1)
+                {
+                  $("#process_alert").css("display", "none");// To hide processing
+                  $("#error_alert").css("display", "block");// To display error
+                }
               },
               error:function(result){
-                alert(result); //===Show Error Message====
+                  console.log(result);
+                  $("#process_alert").css("display", "none");// To hide processing
+                  $("#error_alert").css("display", "block");// To display error
               }
           });
       }
       else
       {
-        $('#txt').text('All Fields are Required')
+        $('#txt').text('All Fields are Required');
       }
       
 

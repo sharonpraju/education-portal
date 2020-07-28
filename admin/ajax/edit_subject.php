@@ -1,11 +1,14 @@
 <?php
 include("../../delta_config.php");
 include("../includes/session.php");
+
+$admin=$_SESSION['admin'];
+
 $conn = OpenCon();
-if(isset($_POST['id']) && isset($_POST['name']) && isset($_POST['description']) && isset($_POST['teacher']) && isset($_POST['teacher_id']))
+if(isset($_POST['id']) && isset($_POST['subject']) && isset($_POST['description']) && isset($_POST['teacher']) && isset($_POST['teacher_id']))
 {
     $id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['id']));
-    $name=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['name']));
+    $name=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['subject']));
     $description=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['description']));
     $teacher=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacher']));
     $teacher_id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacher_id']));
@@ -18,12 +21,12 @@ WHERE id = $id";
 
 if($conn->query($sql))
 {
-    echo 'Edited and saved';
+    echo "1";
 
 }
 else
 {
-echo "Something Wrong with Query";
+echo "0";
 }
 }
 else

@@ -1,5 +1,6 @@
 <?php
 include("../delta_config.php");
+include("includes/session.php");
 $conn = OpenCon();
 ?>
 <!DOCTYPE html>
@@ -55,7 +56,7 @@ $conn = OpenCon();
 
         <!--Hidden Warning-->
         <div class="alert bg-danger alert-dismissible fade show" id="error_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
-        <strong>Ooops!</strong> Something Went Wrong!!
+        <strong>Oops!</strong> Something Went Wrong !
         </div>
         <!--Hidden Warning-->
 
@@ -65,11 +66,17 @@ $conn = OpenCon();
         </div>
         <!--Hidden Processing-->
 
-        <!--Hidden Success-->
-        <div class="alert bg-success alert-dismissible fade show" id="success_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <!--Hidden Delete Success-->
+        <div class="alert bg-success alert-dismissible fade show" id="success_delete_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
         <strong>Deleted Successfully !</strong>
         </div>
-        <!--Hidden Success-->
+        <!--Hidden Delete Success-->
+
+        <!--Hidden Upadate Success-->
+        <div class="alert bg-success alert-dismissible fade show" id="success_update_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Upadated Successfully !</strong>
+        </div>
+        <!--Hidden Upadate Success-->
         
         <!--/////////////////////////////////-->
         <!--/////////////////////////////////-->
@@ -170,7 +177,7 @@ $conn = OpenCon();
         <div class="modal-body">
             <select class="form-control" id="teacher_select">
             <?php 
-                    $sql_query = "SELECT id, name, department FROM users WHERE ban_status='0'";
+                    $sql_query = "SELECT id, name, department FROM users WHERE who='teacher' OR who='admin' AND ban_status='0'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $row = mysqli_fetch_assoc($resultset) ) { ?>
                     <option value="<?php echo$row['id'];?>"><?php echo$row['name']; echo" ( ".$row['department']." )"; ?></option>
@@ -215,7 +222,7 @@ $conn = OpenCon();
 
 
       $("#error_alert").css("display", "none");// To hide error
-      $("#success_alert").css("display", "none");// To hide success
+      $("#success_delete_alert").css("display", "none");// To hide success
       $("#process_alert").css("display", "block");// To display processing
 
       $.ajax({
@@ -229,7 +236,7 @@ $conn = OpenCon();
             var x = document.getElementById("tr_"+del_id);
             x.remove(); // removes tr from DOM
             $("#process_alert").css("display", "none");// To hide processing
-            $("#success_alert").css("display", "block");// To display success
+            $("#success_delete_alert").css("display", "block");// To display success
           }
           else//if not deleted (not returned 1)
           {
@@ -246,7 +253,6 @@ $conn = OpenCon();
 
     }
 
-
     function editItem(id){
       var subject=document.getElementById("name_"+id).textContent;
       var description=document.getElementById("description_"+id).textContent;
@@ -256,13 +262,32 @@ $conn = OpenCon();
       console.log(description);
       console.log(teacher);
       console.log( teacher_id);
+
+      $("#error_alert").css("display", "none");// To hide error
+      $("#success_update_alert").css("display", "none");// To hide success
+      $("#process_alert").css("display", "block");// To display processing
     
       $.ajax({
         url:'ajax/edit_subject.php',
         type:"POST",
         data:{id:id, subject:subject, description:description, teacher:teacher, teacher_id:teacher_id},
         success:function(result){
-          console.log(result)
+        console.log(result);
+          if(result==1) //to check it is deleted
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#success_update_alert").css("display", "block");// To display success
+          }
+          else//if not deleted (not returned 1)
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").css("display", "block");// To display error
+          }
+        },
+        error:function(result){
+          console.log(result);
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").css("display", "block");// To display error
         }
       })
     
