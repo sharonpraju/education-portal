@@ -4,9 +4,9 @@
 <head>
   
 <?php 
-  session_start();
+
   
-  include("includes/sidebar.html"); ?>
+  include("includes/session.php"); ?>
 
 
   <meta charset="utf-8">

@@ -3,7 +3,7 @@
  <!-- git test --> 
 <head>
 <?php 
- include("includes/sidebar.html");
+ include("includes/session.php");
    
   $id = $_SESSION['admin']; 
   ?>

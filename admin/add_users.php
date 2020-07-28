@@ -6,7 +6,7 @@
 
 
 <?php 
- include("includes/sidebar.html");?>
+ include("includes/session.php");?>
 
 
 
