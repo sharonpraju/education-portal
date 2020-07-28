@@ -196,26 +196,8 @@ $conn = OpenCon();
     </div>
   </div>
 
-  <script>
-    $(document).ready(function(){
-      $('#dataTable').Tabledit({
-        url:'manage_update.php',
-        columns:{
-          identifier:[0,"id"],
-          editable:[[1,'name'], [2, 'who'], [3, 'department'], [4, 'email'], [5, 'ban_status']]
-        },
-        restoreButton:false,
-        onSuccess:function(data, textStatus, jqXHR)
-        {
-          if(data.action == 'delete')
-          {
-            $('#'+data.id).remove()
-          }
-        }
-      });
-    });
-  </script>
-  <script type="text/javascript" src="custom_table_edit.js"></script>
+
+ 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
