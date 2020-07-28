@@ -1,3 +1,7 @@
+<?php
+include("../delta_config.php");
+$conn = OpenCon();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,46 +63,35 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Department</th>
-                      <th>Email</th>
-                      <th>Ban</th>
+                      <th>Subject Name</th>
+                      <th>Description</th>
+                      <th>Teacher</th>
+                      <th>Delete</th>
+                      <th>Save</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Department</th>
-                      <th>Email</th>
-                      <th>Ban</th>
+                      <th>Subject Name</th>
+                      <th>Description</th>
+                      <th>Teacher</th>
+                      <th>Delete</th>
+                      <th>Save</th>
                     </tr>
                   </tfoot>
                   <tbody>
+                  <?php 
+                    $sql_query = "SELECT id, name, description, teacher FROM subjects WHERE status='1'";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $row = mysqli_fetch_assoc($resultset) ) { ?>
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
+                      <td id="<?php echo $row ['id']; ?>name" contenteditable="true"><?php echo $row ['name']; ?> </td>
+                      <td id="<?php echo $row ['id']; ?>description" contenteditable="true"><?php echo $row ['description']; ?></td>
+                      <td id="<?php echo $row ['id']; ?>teacher" contenteditable="true"><?php echo $row ['teacher']; ?></td>
+                      <td><a id="deleteRef" value="<?php echo $row ['id']; ?>" href="javascript:deleteItem(<?php echo $row ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $row ['id']; ?>)" class="fas fa-check"></a></td>
                     </tr>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                    </tr>
-                    <tr>
-                      <td>Savy</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>62</td>
-                      <td>2011/04/25</td>
-                    </tr>
-                    
- 
+                    <?php } ?>
                   </tbody>
                 </table>
               </div>
