@@ -2,7 +2,7 @@
 session_start();
 if(!isset( $_SESSION['admin']))
 {
-    echo("Your session has expired");
+    echo('<script>alert("Your session has expired")<?script>');
     header('Location: index.php');
     exit;
     // kalla panni erangi poda
