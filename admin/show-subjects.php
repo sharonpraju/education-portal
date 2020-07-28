@@ -49,6 +49,32 @@ $conn = OpenCon();
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
+        <!--Hidden Warning-->
+        <div class="alert bg-danger alert-dismissible fade show" id="error_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Ooops!</strong> Something Went Wrong!!
+        </div>
+        <!--Hidden Warning-->
+
+        <!--Hidden Processing-->
+        <div class="alert bg-info alert-dismissible fade show" id="process_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Processing... </strong> Please Wait !
+        </div>
+        <!--Hidden Processing-->
+
+        <!--Hidden Success-->
+        <div class="alert bg-success alert-dismissible fade show" id="success_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Deleted Successfully !</strong>
+        </div>
+        <!--Hidden Success-->
+        
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
+
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Subject / Courses</h1>
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
@@ -63,18 +89,20 @@ $conn = OpenCon();
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Subject Name</th>
+                      <th>Subject</th>
                       <th>Description</th>
                       <th>Teacher</th>
+                      <th>Change Teacher</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Subject Name</th>
+                      <th>Subject</th>
                       <th>Description</th>
                       <th>Teacher</th>
+                      <th>Change Teacher</th>
                       <th>Delete</th>
                       <th>Save</th>
                     </tr>
@@ -84,11 +112,17 @@ $conn = OpenCon();
                     $sql_query = "SELECT id, name, description, teacher FROM subjects WHERE status='1'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $row = mysqli_fetch_assoc($resultset) ) { ?>
-                    <tr>
+                    <tr id="tr_<?php echo $row ['id']; ?>">
                       <td id="<?php echo $row ['id']; ?>name" contenteditable="true"><?php echo $row ['name']; ?> </td>
                       <td id="<?php echo $row ['id']; ?>description" contenteditable="true"><?php echo $row ['description']; ?></td>
-                      <td id="<?php echo $row ['id']; ?>teacher" contenteditable="true"><?php echo $row ['teacher']; ?></td>
-                      <td><a id="deleteRef" value="<?php echo $row ['id']; ?>" href="javascript:deleteItem(<?php echo $row ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td id="<?php echo $row ['id']; ?>teacher"><?php echo $row ['teacher']; ?>
+                      </td>
+                      <td>
+                        <a class="btn btn-info btn-sm" href="#" data-toggle="modal" data-target="#teacherModal">
+                          Change Teacher
+                        </a>
+                      </td>
+                      <td><a id="deleteRef" href="javascript:deleteItem(<?php echo $row ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
                       <td><a  href="javascript:editItem(<?php echo $row ['id']; ?>)" class="fas fa-check"></a></td>
                     </tr>
                     <?php } ?>
@@ -125,17 +159,27 @@ $conn = OpenCon();
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Teacher Modal-->
+  <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Select Teacher</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">Select a teacher from the list.<br>If the teacher is not listed. Please make sure you have added the particular teacher as a user. If you haven't done this, Add a teacher now.
+            <?php 
+                    $sql_query = "SELECT id, name, department FROM users WHERE ban_status='0'";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $row = mysqli_fetch_assoc($resultset) ) { ?>
+                    <select>
+                    <option><?php echo$row['name']; echo"( ".$row['department']." )"; ?></option>
+                    <option> </option>
+                    </select>
+            <?php } ?>
+        </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="login.html">Logout</a>
@@ -160,6 +204,61 @@ $conn = OpenCon();
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  <script>
+
+
+    function deleteItem(del_id){
+
+
+      $("#error_alert").css("display", "none");// To hide error
+      $("#success_alert").css("display", "none");// To hide success
+      $("#process_alert").css("display", "block");// To display processing
+
+      $.ajax({
+        url:'ajax/delete_subject.php',
+        type:"POST",
+        data:{id:del_id},
+        success:function(result){
+        console.log(result);
+          if(result==1) //to check it is deleted
+          {
+            var x = document.getElementById("tr_"+del_id);
+            x.remove(); // removes tr from DOM
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#success_alert").css("display", "block");// To display success
+          }
+          else//if not deleted (not returned 1)
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").css("display", "block");// To display error
+          }
+        },
+        error:function(result){
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").css("display", "block");// To display error
+        }
+      });
+
+
+    }
+
+
+    function editItem(id){
+    var subject=document.getElementById(id+"name").textContent
+    var description=document.getElementById(id+"who").textContent
+    var teacher=document.getElementById(id+"department").textContent
+    
+      $.ajax({
+        url:'ajax/edit_subject.php',
+        type:"POST",
+        data:{id:id, subject:subject, teacher:teacher, description:description},
+        success:function(result){
+          console.log(result)
+        }
+      })
+    
+    }
+  </script>
 
 </body>
 
