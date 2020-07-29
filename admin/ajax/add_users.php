@@ -16,8 +16,8 @@ if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST[
     echo "Teacher Already Exists";
   }
   else{
-    $SQL="INSERT INTO `users` (`id`, `name`, `who`, `department`, `phone`, `email`, `ban_status`, `profile_url`, `pass_hash`, `last_updated`, `status`, `comments`)
-     VALUES (NULL, '$teacherName', '$position', '$teacher_department','', '$teacherEmail',0, '' , '$password', current_timestamp(), '1', '');";
+    $SQL="INSERT INTO `users` (`id`, `name`, `who`, `department`, `email`, `ban_status`,  `pass_hash`, `last_updated`, `status`, `comments`)
+     VALUES (NULL, '$teacherName', '$position', '$teacher_department', '$teacherEmail',0,  '$password', current_timestamp(), '1', '');";
 
     
     if($conn->query($SQL))
