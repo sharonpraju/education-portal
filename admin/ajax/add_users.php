@@ -5,7 +5,7 @@ if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST[
 {
   $teacherName=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherName']));
   $teacherEmail=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherEmail']));
-  $password=md5(mysqli_real_escape_string($conn,$_POST['teacherPassword']));
+  $password=password_hash(mysqli_real_escape_string($conn,$_POST['teacherPassword']),PASSWORD_DEFAULT);
   $position=mysqli_real_escape_string($conn,$_POST['position']);
   $teacher_department=mysqli_real_escape_string($conn,$_POST['teacher_department']);
 
