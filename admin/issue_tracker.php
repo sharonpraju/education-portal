@@ -154,13 +154,13 @@ $conn = OpenCon();
                      <td   id="fixstatus<?php echo $issue ['id']; ?>" ><?php 
                      if($issue ['issue_status']==1)
                      {
-                        echo "Not fixed"; 
+                        echo "<i id='notfixedicon".$issue['id']."' class='fa fa-exclamation-triangle' aria-hidden='true'></i>"; 
                         $notfixedcount=$notfixedcount+1;
                      }
                      else
                      {
                          
-                         echo "Fixed";
+                         echo "<font color='green'><i id='fixedicon".$issue['id']."' class='fa fa-check' aria-hidden='true'></i></font>";
                          $fixedcount= $fixedcount+1;
                      }
                       ?></td>
@@ -286,7 +286,7 @@ var myPieChart = new Chart(ctx, {
           type:"post",
           data:{id},
           success:function(result){
-            $('#fixstatus'+id).text('Fixed')
+            $('#notfixedicon'+id).removeClass('fa fa-exclamation-triangle').addClass('fa fa-check').css("color", "green");
 
           }
       })
