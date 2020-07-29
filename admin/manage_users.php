@@ -121,7 +121,7 @@ $conn = OpenCon();
                     $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
-                    <tr>
+                    <tr id="table<?php echo $user ['id']; ?>" >
                       <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
                       <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
                       <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
@@ -206,6 +206,8 @@ $conn = OpenCon();
 
   <script>
 function deleteItem(del_id){
+  $('#table'+del_id).remove()
+
   $.ajax({
     url:'ajax/manage_users.php',
     type:"POST",
@@ -215,7 +217,6 @@ function deleteItem(del_id){
     }
   })
 
-  location.reload();
 
 }
 function editItem(id){
