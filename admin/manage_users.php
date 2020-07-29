@@ -81,7 +81,33 @@ $conn = OpenCon();
           <p class="mb-4">Any change here is directly reflected in the DataBase so be ware when you use this. Note sure what to do <a target="" href="../admin">go back</a>.</p>
 
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
+          
+          <div class="col-lg-8">
+           <div class="card z-depth-3">
+            <div class="card-body">
+            <ul class="nav nav-pills nav-pills-primary nav-justified">
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profile</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
+                </li>
+            </ul>
+            <div class="tab-content p-3">
+                <div class="tab-pane active show" id="profile">
+                    <h5 class="mb-3">Manage all</h5>
+                    
+
+
+
+
+
+
+
+                    <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
@@ -154,6 +180,186 @@ $conn = OpenCon();
               </div>
             </div>
           </div>
+
+
+
+
+
+
+                    <!--/row-->
+                </div>
+                <div class="tab-pane" id="messages">
+                   
+
+
+
+
+                <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <?php 
+
+                    
+                    
+
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+                    <tr id="table<?php echo $user ['id']; ?>" >
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                    </tr>
+                    <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+
+
+                </div>
+                <div class="tab-pane" id="edit">
+                    
+
+
+
+
+                <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <?php 
+
+                    
+                    
+
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+                    <tr id="table<?php echo $user ['id']; ?>" >
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                    </tr>
+                    <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+          
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
         </div>
         <!-- /.container-fluid -->
