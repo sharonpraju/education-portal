@@ -97,7 +97,7 @@ $conn = OpenCon();
         <!-- /.container-fluid -->
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Track Issues</h1>
+          <h1 class="h3 mb-2 text-gray-800"   >Track Issues</h1>
           <p class="mb-4">Issues Raised by the students and the teachers appears here</p>
 
           <!-- DataTales Example -->

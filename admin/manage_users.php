@@ -88,15 +88,87 @@ $conn = OpenCon();
                       Dropdown
                     </button>
                     <div id="nav" class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#content1">Student</a>
+                      <a class="dropdown-item" href="#content1">All</a>
+                      <a class="dropdown-item" href="#content4">Student</a>
                       <a class="dropdown-item" href="#content2">Teachers</a>
-                      <a class="dropdown-item" href="#content3">admin</a>
+                      <a class="dropdown-item" href="#content3">Admin</a>
                     </div>
                   </div>
             </div>
 
+            <div id="content1" class="toggle" style="display:none">
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <?php 
+
+                    
+                    
+
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+                    <tr id="table<?php echo $user ['id']; ?>" >
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                    </tr>
+                    <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+         </div>
            
-          <div id="content1" class="toggle" style="display:none">
+          <div id="content4" class="toggle" style="display:none">
 
             <div class="card-body">
               <div class="table-responsive">
