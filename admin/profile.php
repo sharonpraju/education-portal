@@ -296,7 +296,6 @@
                             </label> &nbsp; ( Optional )
                         </div>
                         <input name="process" value="profile_edit" hidden readonly>
-                        <input name="id" value="<?php echo $id ;?>" hidden readonly>
                         
                         <small><b>Department can be changed only from 'Manage Users' page<br>&nbsp;</b></small>
                         <div class="form-group row">
