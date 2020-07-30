@@ -5,10 +5,10 @@ if(!empty($_POST['subject']) && !empty($_POST['description']) && !empty($_POST['
 include("../../delta_config.php");
 $conn = OpenCon();
 
-$subject=mysqli_real_escape_string($conn,$_POST['subject']);
-$description=mysqli_real_escape_string($conn,$_POST['description']);
-$teacher=mysqli_real_escape_string($conn,$_POST['teacher']);
-$teacher_id=mysqli_real_escape_string($conn,$_POST['teacher_id']);
+$subject=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['subject']));
+$description=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['description']));
+$teacher=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacher']));
+$teacher_id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacher_id']));
 $admin=$_SESSION['admin'];
 
     $sql="INSERT INTO subjects (id, name, description, teacher, teacher_id, last_updated, updated_by)
