@@ -1,18 +1,4 @@
-<?php
-include("includes/session.php");
-include("../../delta_config.php");
-$admin=$_SESSION['admin'];
-$conn = OpenCon();
-$sql = "SELECT profile_url FROM users where id=? AND ban_status='0'"; // SQL with parameters
-$stmt = $conn->prepare($sql); 
-$stmt->bind_param("s", $admin);
-$stmt->execute();
-$result = $stmt->get_result(); // get the mysqli result
-$data = $result->fetch_assoc(); // fetch data
-$user_avatar=$data['profile_url'];
-CloseCon($conn);
-
-?><nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -237,7 +223,7 @@ CloseCon($conn);
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-          <img id="user_avtar" class="img-profile rounded-circle" src='<?php echo $user_avatar ?>'>
+          <img id="user_avtar" class="img-profile rounded-circle" src=''>
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -283,6 +269,21 @@ CloseCon($conn);
     </div>
   </div> <script src="./vendor/jquery/jquery.min.js"></script>
   <script>
+
+      $.ajax({
+        url:'ajax/getavatar.php',
+        type:"POST",
+        data:{user:'admin'}, //Not required this post
+        success:function(result){
+          console.log(result)
+          $("#user_avtar").attr("src",result);
+        },
+        error:function(result){
+          console.log(result)
+        }
+      });
+
+
     var notify=localStorage.getItem("notificationCount");
     $('#displayWarning').text(notify)
   /*  var current_notification
