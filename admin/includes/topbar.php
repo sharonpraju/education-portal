@@ -361,12 +361,13 @@ var current_notification
   $.ajax({
     url: './ajax/notification.php', 
     success: function(result) {
-      if(current_notification!=result)
+      if(current_notification!=result && result!=1)
       {
         $('#displayWarning').text(i)
       localStorage.setItem("notificationCount", i);
       var x = document.getElementById("myAudio"); 
-      x.play(); 
+      console.log(result)
+     x.play(); 
       i++
       current_notification=result
 
