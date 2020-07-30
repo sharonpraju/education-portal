@@ -61,7 +61,7 @@ $conn = OpenCon();
 
         <!--Hidden Warning-->
         <div class="alert bg-danger alert-dismissible fade show" id="error_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
-        <strong>Oops!</strong> Something Went Wrong !
+        <strong>Oops !</strong> Something Went Wrong !
         </div>
         <!--Hidden Warning-->
 

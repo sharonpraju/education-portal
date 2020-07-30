@@ -54,11 +54,7 @@
 
     <!-- Sidebar -->
     
-    <?php include("includes/sidebar.html"); 
-    
-    
-    
-    ?>
+    <?php include("includes/sidebar.html"); ?>
 
     <!-- End of Sidebar -->
 
@@ -84,15 +80,41 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
+
+
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
+        <!--Hidden Warning-->
+        <div class="alert bg-danger alert-dismissible fade show" id="error_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Oops !</strong> Something Went Wrong !
+        </div>
+        <!--Hidden Warning-->
+
+        <!--Hidden Processing-->
+        <div class="alert bg-info alert-dismissible fade show" id="process_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Processing... </strong> Please Wait !
+        </div>
+        <!--Hidden Processing-->
+
+        <!--Hidden Delete Success-->
+        <div class="alert bg-success alert-dismissible fade show" id="success_alert" role="alert" style="display:none; position:fixed; top:5; right:2vw; z-index:999; color:#ffffff; float:right">
+        <strong>Updated Successfully !<br> Reload the page to see changes.</strong>
+        </div>
+        <!--Hidden Delete Success-->
+        
+        <!--/////////////////////////////////-->
+        <!--/////////////////////////////////-->
+
         
         <div class="container">
-<div class="row">
+          <div class="row">
         <div class="col-lg-4">
            <div class="profile-card-4 z-depth-3">
             <div class="card">
               <div class="card-body text-center bg-primary rounded-top">
                <div class="user-box">
-                <img src='../<?php echo $data['profile_url'];?>' alt="user avatar">
+                <img src='./img/profile/<?php echo $data['profile_url'];?>' alt="user avatar">
               </div>
               <h5 class="mb-1 text-white"><?php echo $data['name'];?></h5>
               <h6 class="text-light"><?php echo $data['who'];?></h6>
@@ -165,7 +187,8 @@
                     <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Edit</span></a>
                 </li>
             </ul>
-            <div class="tab-content p-3">
+
+              <div class="tab-content p-3">
                 <div class="tab-pane active show" id="profile">
                     <h5 class="mb-3">User Profile</h5>
                     <div class="row">
@@ -220,13 +243,13 @@
                 </div>
                 <div class="tab-pane" id="messages">
                     <div class="alert alert-info alert-dismissible" role="alert">
-    			   <button type="button" class="close" data-dismiss="alert">×</button>
-				    <div class="alert-icon">
-					 <i class="icon-info"></i>
-				    </div>
-				    <div class="alert-message">
-				      <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
-				    </div>
+    			            <button type="button" class="close" data-dismiss="alert">×</button>
+				            <div class="alert-icon">
+					        <i class="icon-info"></i>
+				          </div>
+				          <div class="alert-message">
+				            <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+				          </div>
                   </div>
                     <table class="table table-hover table-striped">
                         <tbody>                                    
@@ -258,54 +281,62 @@
                         </tbody> 
                     </table>
                 </div>
+
                 <div class="tab-pane" id="edit">
-                    <form action="../delta_process.php" method="POST" enctype="multipart/form-data" >
+                    <form id="data" action="../delta_process.php" method="POST" enctype="multipart/form-data" >
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"><?php echo $data['name'];?></label>
-                            <div class="col-lg-9">
+                            <label class="col-lg-4 col-form-label form-control-label">Name</label>
+                            <div class="col-lg-7">
                                 <input class="form-control" name='name' type="text" value="<?php echo $data['name'];?>">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Change profile</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" name='fileToUpload' type="file">
-                            </div>
+                            <label class="col-lg-4 col-form-label form-control-label">Change Image</label>
+                            <label for="fileUpload" class="col-lg-5 file-upload btn btn-secondary btn-block btn-x"><i class="fa fa-upload mr-2"></i>Upload Image
+                            <input class="form-control" id="fileUpload" name='fileToUpload' type="file">
+                            </label> &nbsp; ( Optional )
                         </div>
                         <input name="process" value="profile_edit" hidden readonly>
                         <input name="id" value="<?php echo $id ;?>" hidden readonly>
                         
+                        <small><b>Department can be changed only from 'Manage Users' page<br>&nbsp;</b></small>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Department</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" name ='department' type="text" value="<?php echo $data['department'];?>">
+                            <label class="col-lg-4 col-form-label form-control-label">Department</label>
+                            <div class="col-lg-7">
+                                <input class="form-control" name ='department' type="text" value="<?php echo $data['department'];?>" readonly required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Phone</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" name ='phone' type="text" value="<?php echo $data['phone'];?>">
+                            <label class="col-lg-4 col-form-label form-control-label">Phone</label>
+                            <div class="col-lg-7">
+                                <input class="form-control" name ='phone' type="text" value="<?php echo $data['phone'];?>" required>
                             </div>
                         </div>
                         
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                            <div class="col-lg-9">
-                                <input class="form-control" name ='email' type="email" value="<?php echo $data['email'];?>">
+                            <label class="col-lg-4 col-form-label form-control-label">Email</label>
+                            <div class="col-lg-7">
+                                <input class="form-control" name ='email' type="email" value="<?php echo $data['email'];?>" required>
+                            </div>
+                        </div>
+                        <small><b>Leave the password field blank if you don't need to change the password<br>&nbsp;</b></small>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label form-control-label">Current Password</label>
+                            <div class="col-lg-7">
+                                <input class="form-control"  name='password' type="password" placeholder="Enter Current Password">
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                            <div class="col-lg-9">
-                                <input class="form-control"  name='password' type="password" value="**************">
+                            <label class="col-lg-4 col-form-label form-control-label">New Password</label>
+                            <div class="col-lg-7">
+                                <input class="form-control"  name='new_password' type="password" placeholder="Enter New Password">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label"></label>
-                            <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Cancel">
+                            <label class="col-lg-4 col-form-label form-control-label"></label>
+                            <div class="col-lg-7">
                                 <input type="submit" class="btn btn-primary" value="Save Changes">
                             </div>
                         </div>
@@ -314,10 +345,9 @@
             </div>
         </div>
       </div>
+      </div>  
       </div>
-        
     </div>
-</div>
         
 
         </div>
@@ -327,14 +357,8 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+      <?php include("includes/footer.html"); ?>
+      <!-- Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -365,6 +389,53 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
+
+  <script>
+    $("form#data").submit(function(e) {
+    e.preventDefault();    
+    var formData = new FormData(this);
+
+    $("#error_alert").html("<strong>Oops!</strong> Something Went Wrong !");
+
+    $("#error_alert").css("display", "none");// To hide error
+    $("#success_alert").css("display", "none");// To hide success
+    $("#process_alert").css("display", "block");// To display processing
+
+      $.ajax({
+        url: $("form#data").prop("action"),
+        type: 'POST',
+        data: formData,
+        success: function (data) {
+          console.log(data);
+          
+          if(data==1) //to check it is deleted
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#success_alert").css("display", "block");// To display success
+          }
+          else if(data.length>250)
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").css("display", "block");// To display error
+          }
+          else//if not deleted (not returned 1)
+          {
+            $("#process_alert").css("display", "none");// To hide processing
+            $("#error_alert").html(data);
+            $("#error_alert").css("display", "block");// To display error
+          }
+        },
+        error: function (data) {
+          console.log(data);
+          $("#process_alert").css("display", "none");// To hide processing
+          $("#error_alert").css("display", "block");// To display error
+        }, 
+        cache: false,
+        contentType: false,
+        processData: false
+      });
+    });
+  </script>
 
 </body>
 
