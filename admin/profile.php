@@ -72,7 +72,7 @@
 
 
         <!-- Topbar -->
-        <?php include("includes/topbar.html"); ?>
+        <?php include("includes/topbar.php"); ?>
         <!-- End of Topbar -->
 
 

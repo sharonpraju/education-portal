@@ -1,4 +1,18 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<?php
+include("includes/session.php");
+include("../../delta_config.php");
+$admin=$_SESSION['admin'];
+$conn = OpenCon();
+$sql = "SELECT profile_url FROM users where id=? AND ban_status='0'"; // SQL with parameters
+$stmt = $conn->prepare($sql); 
+$stmt->bind_param("s", $admin);
+$stmt->execute();
+$result = $stmt->get_result(); // get the mysqli result
+$data = $result->fetch_assoc(); // fetch data
+$user_avatar=$data['profile_url'];
+CloseCon($conn);
+
+?><nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -88,7 +102,7 @@
           <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
         </div>
       </li>
-  <!--Issue Warning area Custom Mde-->
+      <!--Issue Warning area Custom Mde-->
 
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown warningclick" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -164,8 +178,10 @@
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-envelope fa-fw"></i>
           <!-- Counter - Messages -->
+
           <span class="badge badge-danger badge-counter">7</span>
         </a>
+
         <!-- Dropdown - Messages -->
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
           <h6 class="dropdown-header">
@@ -221,7 +237,7 @@
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-          <img class="img-profile rounded-circle" src='../<?php echo $data['profile_url'];?>'>
+          <img id="user_avtar" class="img-profile rounded-circle" src='<?php echo $user_avatar ?>'>
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -246,6 +262,8 @@
       </li>
 
     </ul>
+
+
      <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
