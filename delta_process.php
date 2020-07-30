@@ -55,13 +55,44 @@ if (isset($_POST['process']))
     
     if($process=="admin_login")
     {
-        
+      $conn = OpenCon();
         $email=$_POST['email'];
         $password=$_POST['password'];
         $hash_pass=adminLogin($email);
         $id=getID($email);
         if(password_verify($password, $hash_pass)) {
         $_SESSION['admin']=$id;
+
+        
+        $ls_value = md5($_SESSION['admin'].time());
+
+        $_SESSION['cookie']=$ls_value;
+   
+ 
+
+        $sql="UPDATE users
+                SET cookie = '$ls_value'
+                WHERE id = '$id' ";
+                
+
+        if($conn->query($sql))
+        {
+            echo "1";
+        }
+        else
+        {
+            echo "0";
+            echo $conn->error;
+        }
+
+
+        
+
+        
+
+
+
+
         header('Location: admin/dashboard.php');
         exit;
         }
@@ -75,7 +106,11 @@ if (isset($_POST['process']))
     /////////////////////Profile Edit//////////////////////
     
     if($process=="profile_edit")
-    {
+    { $conn = OpenCon();
+      $sql = "SELECT cookie FROM users where id=".$_POST['id']." AND ban_status='0'";
+      $resultset = mysqli_query($conn, $sql) or die("database error:". mysqli_error($conn));
+      $data = $result->fetch_assoc();
+      if($data['cookie'] == $_POST['cookie']){
 
       $log=1;
       
@@ -236,6 +271,11 @@ if (isset($_POST['process']))
         }
         CloseCon($conn);
     }
+    else {
+      echo "cant update";
+    }
+  }
+
 }
 
 //here log is returned only if it is one, because we are displaying the returned error from here on profile page.
