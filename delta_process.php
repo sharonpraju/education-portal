@@ -11,7 +11,6 @@ include("delta_config.php");
 
 function adminLogin($email)
 {
-  session_start();
   $conn = OpenCon();
   $sql = "SELECT pass_hash FROM users where email=? AND ban_status='0'"; // SQL with parameters
   $stmt = $conn->prepare($sql); 
@@ -61,7 +60,6 @@ if (isset($_POST['process']))
         $password=$_POST['password'];
         $hash_pass=adminLogin($email);
         $id=getID($email);
-        echo "<script>alert(fa-stack-1x)</script>";
         if(password_verify($password, $hash_pass)) {
         $_SESSION['admin']=$id;
         header('Location: admin/dashboard.php');

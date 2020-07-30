@@ -5,7 +5,7 @@ if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST[
 {
   $teacherName=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherName']));
   $teacherEmail=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['teacherEmail']));
-  $password=md5(mysqli_real_escape_string($conn,$_POST['teacherPassword']));
+  $password=password_hash(mysqli_real_escape_string($conn,$_POST['teacherPassword']),PASSWORD_DEFAULT);
   $position=mysqli_real_escape_string($conn,$_POST['position']);
   $teacher_department=mysqli_real_escape_string($conn,$_POST['teacher_department']);
 
@@ -16,9 +16,9 @@ if(isset($_POST['teacherName'])  &&isset($_POST['teacherEmail']) &&isset($_POST[
     echo "Teacher Already Exists";
   }
   else{
-    $SQL="  INSERT INTO `users` (`id`, `name`, `who`, `department`, `email`, `ban_status`, `profile_url`, `pass_hash`, `last_updated`, `status`, `comments`) VALUES (NULL, '$teacherName', '$position', '$teacher_department', '$teacherEmail', '0', '', '$password', current_timestamp(), '1', '');";
-    
-  
+    $SQL="INSERT INTO `users` (`id`, `name`, `who`, `department`, `email`, `ban_status`,  `pass_hash`, `last_updated`, `status`, `comments`)
+     VALUES (NULL, '$teacherName', '$position', '$teacher_department', '$teacherEmail',0,  '$password', current_timestamp(), '1', '');";
+
     
     if($conn->query($SQL))
     {
