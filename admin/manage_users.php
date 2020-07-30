@@ -78,13 +78,26 @@ $conn = OpenCon();
 
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Manage users</h1>
-          <p class="mb-4">Any change here is directly reflected in the DataBase so be ware when you use this. Note sure what to do <a target="" href="../admin">go back</a>.</p>
+          <p class="mb-4">Any change here is directly reflected in the DataBase so be ware when you use this. Not sure what to do <a target="" href="../admin">go back</a>.</p>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <div class="dropdown mb-4">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown
+                    </button>
+                    <div id="nav" class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#content1">Student</a>
+                      <a class="dropdown-item" href="#content2">Teachers</a>
+                      <a class="dropdown-item" href="#content3">admin</a>
+                    </div>
+                  </div>
             </div>
+
+           
+          <div id="content1" class="toggle" style="display:none">
+
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -118,7 +131,7 @@ $conn = OpenCon();
                     
                     
 
-                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users WHERE who='student'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
                     <tr id="table<?php echo $user ['id']; ?>" >
@@ -153,6 +166,158 @@ $conn = OpenCon();
                 </table>
               </div>
             </div>
+         </div>
+
+
+
+         <div id="content2" class="toggle" style="display:none">
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <?php 
+
+                    
+                    
+
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users WHERE who='teacher'";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+                    <tr id="table<?php echo $user ['id']; ?>" >
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                    </tr>
+                    <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+         </div>
+
+
+
+
+         <div id="content3" class="toggle" style="display:none">
+
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>id</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Department</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Delete</th>
+                      <th>Save</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <?php 
+
+                    
+                    
+
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users WHERE who='admin'";
+                    $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+                    while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+                    <tr id="table<?php echo $user ['id']; ?>" >
+                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
+                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
+                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                      
+                      if( $user ['ban_status'] == 1)
+                      {
+                        echo '<a id="banStatus'.$user['id'].'" value="banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-warning btn-circle" >
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-exclamation-triangle"></i>
+                      </a>';
+                    
+                    
+                    }
+                      if( $user ['ban_status'] == 0 ){
+                        echo '<a id="banStatus'.$user['id'].'" value="not_banned" href="javascript:changeStatus('.$user['id'].','.$user['ban_status'].')" class="btn btn-success btn-circle">
+                        <i id="banStatus_itag'.$user['id'].'" class="fas fa-check"></i>
+                      </a>';} 
+                      
+                      
+                      ?></td>
+                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                    </tr>
+                    <?php } ?>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+         </div>
+
+
           </div>
 
         </div>
@@ -205,6 +370,24 @@ $conn = OpenCon();
 
 
   <script>
+
+
+
+
+
+
+
+
+
+$("#nav a").click(function(e){
+    e.preventDefault();
+    $(".toggle").hide();
+    var toShow = $(this).attr('href');
+    $(toShow).show();
+});
+
+
+
 function deleteItem(del_id){
   $('#table'+del_id).remove()
 
