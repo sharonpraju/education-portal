@@ -80,11 +80,11 @@ if (isset($_POST['process']))
       $log=1;
       
         $conn = OpenCon();
-        $name=mysqli_real_escape_string($conn,$_POST['name']);
-        //$department=mysqli_real_escape_string($conn,$_POST['department']);
-        $email=mysqli_real_escape_string($conn,$_POST['email']);
-        $phone=mysqli_real_escape_string($conn,$_POST['phone']);
-        $id=mysqli_real_escape_string($conn,$_POST['id']);
+        $name=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['name']));
+        //$department=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['department']));
+        $email=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['email']));
+        $phone=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['phone']));
+        $id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['id']));
 
         
         
@@ -98,7 +98,7 @@ if (isset($_POST['process']))
 
         if(!empty($_POST['password']) )
         { 
-          $password=mysqli_real_escape_string($conn,$_POST['password']);
+          $password=$_POST['password'];
 
           if(password_verify($password, $pass_hash)) {
             $new_password=password_hash($_POST['new_password'], PASSWORD_DEFAULT);

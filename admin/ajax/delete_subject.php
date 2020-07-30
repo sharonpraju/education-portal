@@ -3,7 +3,7 @@ include("../../delta_config.php");
 $conn = OpenCon();
 if(!empty($_POST['id']))
 {
-    $id=mysqli_real_escape_string($conn,$_POST['id']);
+    $id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['id']));
     $sql="DELETE FROM subjects WHERE id='$id'";
     if ($conn->query($sql) === TRUE)
     {

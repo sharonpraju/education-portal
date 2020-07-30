@@ -273,7 +273,7 @@
       $.ajax({
         url:'ajax/getavatar.php',
         type:"POST",
-        data:{user:'admin'}, //Not required this post
+        data:{}, //Not required this post
         success:function(result){
           console.log(result)
           $("#user_avtar").attr("src",result);
