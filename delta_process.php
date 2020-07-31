@@ -84,7 +84,7 @@ if (isset($_POST['process']))
         //$department=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['department']));
         $email=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['email']));
         $phone=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['phone']));
-        $id=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['id']));
+        $id=$_SESSION['admin'];
 
         
         
@@ -169,6 +169,13 @@ if (isset($_POST['process']))
               if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
                 $log=$log*0;
                 echo "<b>ERROR : </b> Only JPG, JPEG, PNG & GIF files are allowed.<br>";
+                $uploadOk = 0;
+              }
+
+              // Check file size
+              if ($_FILES["fileToUpload"]["size"] > 5000000) {
+                $log=$log*0;
+                echo "<b>ERROR : </b> Your file is too large. <br> Maximum file size is <strong>5 MB</strong>";
                 $uploadOk = 0;
               }
             
