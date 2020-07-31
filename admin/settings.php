@@ -1,12 +1,13 @@
-<?php
-include("../delta_config.php");
-include("includes/session.php");
-$conn = OpenCon();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+  
+<?php 
+
+  
+  include("includes/session.php"); ?>
+
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,7 +35,9 @@ $conn = OpenCon();
 
 
     <!-- Sidebar -->
+    
     <?php include("includes/sidebar.html"); ?>
+
     <!-- End of Sidebar -->
 
 
@@ -47,26 +50,214 @@ $conn = OpenCon();
       <!-- Main Content -->
       <div id="content">
 
+
+
+
         <!-- Topbar -->
-        <?php include("includes/topbar.html"); ?>
+        <?php include("includes/topbar.php"); ?>
         <!-- End of Topbar -->
-        
+
+
+
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+        
 
 
 
-          </div>
+
+
+
+        <div class="p-5 bg-white rounded shadow mb-5">
+    <!-- Rounded tabs -->
+    <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
+      <li class="nav-item flex-sm-fill">
+        <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active">Request a Feature</a>
+      </li>
+      <li class="nav-item flex-sm-fill">
+        <a id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">FAQs</a>
+      </li>
+      <li class="nav-item flex-sm-fill">
+        <a id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Contact Developers</a>
+      </li>
+      <li class="nav-item flex-sm-fill">
+        <a id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Wipe Account</a>
+      </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          
+      </div>
+      <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
+        <div class="container py-5">
+
+    <!-- For demo purpose -->
+    <div class="row text-center text-muted mb-0">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="display-4">FAQs</h1>
+            <p class="lead mb-0">Answers to Frequently Asked Questions.</p>
+            
+            </div>
+        </div><!-- End -->
+
+
+        <div class="row">
+            <div class="col-lg-7 mx-auto">
+                
+                <!-- Timeline -->
+                <ul class="timeline">
+                    <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                        <div class="timeline-arrow"></div>
+                        <h2 class="h5 mb-0">Title of section 1</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</span>
+                        <p class="text-small mt-2 font-weight-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                    </li>
+                    <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                        <div class="timeline-arrow"></div>
+                        <h2 class="h5 mb-0">Title of section 2</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>5 April, 2019</span>
+                        <p class="text-small mt-2 font-weight-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper.</p>
+                        <p class="text-small mt-2 font-weight-light">Libero expedita explicabo eius fugiat quia aspernatur autem laudantium error architecto recusandae natus sapiente sit nam eaque, consectetur porro molestiae ipsam! Deleniti.</p>
+                    </li>
+                    <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                        <div class="timeline-arrow"></div>
+                        <h2 class="h5 mb-0">Title of section 3</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>18 August, 2019</span>
+                        <p class="text-small mt-2 font-weight-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                    </li>
+                    <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
+                        <div class="timeline-arrow"></div>
+                        <h2 class="h5 mb-0">Title of section 4</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>10 October, 2019</span>
+                        <p class="text-small mt-2 font-weight-light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                        <p class="text-small mt-2 font-weight-light">Voluptatibus temporibus esse illum eum aspernatur, fugiat suscipit natus! Eum corporis illum nihil officiis tempore. Excepturi illo natus libero sit doloremque, laborum molestias rerum pariatur quam ipsam necessitatibus incidunt, explicabo.</p>
+                    </li>
+                </ul><!-- End -->
+
+            </div>
         </div>
+    </div>
+      </div>
+      <div id="contact" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+        <!--Section: Contact v.2-->
+<section class="mb-4">
+
+<!--Section heading-->
+<h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+<!--Section description-->
+<p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
+    a matter of hours to help you.</p>
+
+<div class="row">
+
+    <!--Grid column-->
+    <div class="col-md-9 mb-md-0 mb-5">
+        <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6">
+                    <div class="md-form mb-0">
+                        <input type="text" id="name" name="name" class="form-control">
+                        <label for="name" class="">Your name</label>
+                    </div>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6">
+                    <div class="md-form mb-0">
+                        <input type="text" id="email" name="email" class="form-control">
+                        <label for="email" class="">Your email</label>
+                    </div>
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <!--Grid row-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-form mb-0">
+                        <input type="text" id="subject" name="subject" class="form-control">
+                        <label for="subject" class="">Subject</label>
+                    </div>
+                </div>
+            </div>
+            <!--Grid row-->
+
+            <!--Grid row-->
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-12">
+
+                    <div class="md-form">
+                        <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                        <label for="message">Your message</label>
+                    </div>
+
+                </div>
+            </div>
+            <!--Grid row-->
+
+        </form>
+
+        <div class="text-center text-md-left">
+            <a class="btn btn-primary text-white" onclick="document.getElementById('contact-form').submit();">Send</a>
+        </div>
+        <div class="status"></div>
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-md-3 text-center">
+        <ul class="list-unstyled mb-0">
+            <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                <p>San Francisco, CA 94126, USA</p>
+            </li>
+
+            <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                <p>+ 01 234 567 89</p>
+            </li>
+
+            <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                <p>contact@mdbootstrap.com</p>
+            </li>
+        </ul>
+    </div>
+    <!--Grid column-->
+
+</div>
+
+</section>
+<!--Section: Contact v.2-->
+      </div>
+    </div>
+    <!-- End rounded tabs -->
+  </div>
+
+
+
+
+
+
+
+
+
+
         <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
+
       
-      <!-- Footer -->
       <?php include("includes/footer.html"); ?>
-      <!-- Footer -->
       
 
     </div>
@@ -80,24 +271,7 @@ $conn = OpenCon();
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -116,54 +290,8 @@ $conn = OpenCon();
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
 
-  <script>
-  $('.text').click(function ()
-  {
-    var subject=document.getElementById('subject').value;
-    var description=document.getElementById('description').value;
-    var teacher=$('#teacher option:selected').text();
-    var teacher_id=document.getElementById('teacher').value;
-
-      if(subject!="" && teacher!="" )
-      {
-        $("#error_alert").css("display", "none");// To hide error
-        $("#success_alert").css("display", "none");// To hide success
-        $("#process_alert").css("display", "block");// To display processing
-          $.ajax
-          ({ 
-              url: 'ajax/add-subject.php',
-              data: {"subject": subject, "description": description, "teacher": teacher, "teacher_id": teacher_id},
-              type: 'post',
-              success:function(result){
-                console.log(result);
-                if(result==1) //to check it is deleted
-                {
-                  $("#process_alert").css("display", "none");// To hide processing
-                  $("#success_alert").css("display", "block");// To display success
-                }
-                else//if not deleted (not returned 1)
-                {
-                  $("#process_alert").css("display", "none");// To hide processing
-                  $("#error_alert").css("display", "block");// To display error
-                }
-              },
-              error:function(result){
-                  console.log(result);
-                  $("#process_alert").css("display", "none");// To hide processing
-                  $("#error_alert").css("display", "block");// To display error
-              }
-          });
-      }
-      else
-      {
-        $('#txt').text('All Fields are Required');
-      }
-      
-
-  });
-  </script>
-
 </body>
 
 </html>
 
+ 
