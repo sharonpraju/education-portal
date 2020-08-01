@@ -128,25 +128,14 @@ $conn = OpenCon();
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $row = mysqli_fetch_assoc($resultset) ) { ?>
                                         <tr id="tr_<?php echo $row ['id']; ?>">
-                                            <td id="name_<?php echo $row ['id']; ?>" contenteditable="true">
-                                                <?php echo $row ['name']; ?> </td>
-                                            <td id="description_<?php echo $row ['id']; ?>" contenteditable="true">
-                                                <?php echo $row ['description']; ?></td>
-                                            <td id="teacher_<?php echo $row ['id']; ?>"
-                                                class="<?php echo $row ['teacher_id']; ?>">
-                                                <?php echo $row ['teacher']; ?></td>
+                                            <td id="name_<?php echo $row ['id']; ?>" contenteditable="true"><?php echo $row ['name']; ?> </td>
+                                            <td id="description_<?php echo $row ['id']; ?>" contenteditable="true"><?php echo $row ['description']; ?></td>
+                                            <td id="teacher_<?php echo $row ['id']; ?>" class="<?php echo $row ['teacher_id']; ?>"><?php echo $row ['teacher']; ?></td>
                                             <td>
-                                                <a class="btn btn-info btn-sm text-white"
-                                                    onclick="changeTeacher(<?php echo $row ['id']; ?>)"
-                                                    data-toggle="modal" data-target="#teacherModal">
-                                                    Change Teacher
-                                                </a>
+                                                <a class="btn btn-info btn-sm text-white" onclick="changeTeacher(<?php echo $row ['id']; ?>)"data-toggle="modal" data-target="#teacherModal">Change Teacher</a>
                                             </td>
-                                            <td><a id="deleteRef"
-                                                    href="javascript:deleteItem(<?php echo $row ['id']; ?>)"
-                                                    class="fa fa-trash" aria-hidden="true"></a></td>
-                                            <td><a href="javascript:editItem(<?php echo $row ['id']; ?>)"
-                                                    class="fas fa-check"></a></td>
+                                            <td><a id="deleteRef" href="javascript:deleteItem(<?php echo $row ['id']; ?>)"class="fa fa-trash" aria-hidden="true"></a></td>
+                                            <td><a href="javascript:editItem(<?php echo $row ['id']; ?>)" class="fas fa-check"></a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
