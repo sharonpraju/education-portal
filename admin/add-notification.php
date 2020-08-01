@@ -57,7 +57,10 @@
   <div id="wrapper">
 
 
-
+<?php 
+include("../delta_config.php");
+$conn = OpenCon();
+?>
 
     <!-- Sidebar -->
     
@@ -162,7 +165,64 @@
         </div>
     </div>
       
-        
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6><center><font id="deletedWarn" color="red">Deleted</font></center>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>CreatedBy</th>
+                <th>Content</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Notice/Notification</th>
+                <th>Delete</th>
+                
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+              <th>id</th>
+                <th>CreatedBy</th>
+                <th>Content</th>
+                <th>Department</th>
+                <th>Date</th>
+                <th>Notice/Notification</th>
+                <th>Delete</th>
+                
+              </tr>
+            </tfoot>
+            <tbody>
+              <?php 
+
+              
+              
+
+              $sql_query = "SELECT id, creator, content, department, date_created, is_important FROM notification_db";
+              $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
+              while( $user = mysqli_fetch_assoc($resultset) ) { ?>
+              <tr id="hideclass<?php echo $user ['id']; ?>">
+                <td id="" ><?php echo $user ['id']; ?> </td>  
+                <td id="" ><?php echo $user ['creator']; ?> </td>
+                <td id="" ><?php echo $user ['content']; ?></td>
+                <td id="" ><?php echo $user ['department']; ?></td>
+                <td id="" ><?php echo $user ['date_created']; ?></td>
+                <td id="" ><?php if($user ['is_important']==0){ echo "Notification"; }else{ echo "<font color=blue>Notice</font>" ;} ?></td>
+             
+                <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+               
+              </tr>
+              <?php } ?>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     
         </div>
         <!-- /.container-fluid -->
@@ -212,6 +272,7 @@
 
 </body>
 <script>
+  $('#deletedWarn').hide()
   $('#cleanChecker').click(function(){
     $('#finalResult').text(" ")
   })
@@ -256,8 +317,24 @@ $('#finalResult').text(result)
 
 
     })
+    function deleteItem(id){
+      $.ajax({
+      url:'./ajax/add_notification.php',
+      type:'POST',
+      data:{
+          delete:"delete",id:id
+  },
+  success:function(result)
+  {
+
+$('#hideclass'+id).hide()
+$('#deletedWarn').show()
+  }
+})
+
+    }
     </script>
-<!--Ajax Query for Adding Teacher-->
+
 
 
 </html>
