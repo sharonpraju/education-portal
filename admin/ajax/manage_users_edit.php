@@ -34,9 +34,11 @@ else if(isset($_POST['id']) && isset($_POST['edit_who']) && isset($_POST['edit_d
     $edit_who=htmlspecialchars(mysqli_real_escape_string($conn,$_POST['edit_who']));
 
 
+
 $sql="UPDATE users
-SET name = '$edit_name', who= '$edit_who',department='$edit_department',email='$edit_email'
-WHERE id = $id";
+SET name ='$edit_name', who='$edit_who',department='$edit_department',email='$edit_email'
+WHERE id=$id";
+echo $sql;
 
 if($conn->query($sql))
 {
@@ -47,6 +49,8 @@ else
 {
 echo "Something Wrong with Query";
 }
+
+
 }
 else
 {

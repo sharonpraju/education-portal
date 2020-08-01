@@ -67,6 +67,7 @@ if (isset($_POST['process']))
         }
         else
         {
+          echo $hash_pass;
             echo"Wrong Username / Password";
         }
     }
