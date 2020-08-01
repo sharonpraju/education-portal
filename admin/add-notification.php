@@ -101,30 +101,32 @@
             <div class="card-body">  
               <div class="mb-3">
                 <code id="PasswordError"><center> <input type="file" name="fileToUpload" id="fileToUpload"></center></code>
-              </div> <div class="block">Name:<textarea id="roundSelection"  ></textarea>
-                <form>
-                    <input type="radio" id="All" name="gender" value="other">
+              </div> <div id="message" class="block">Name:<textarea id="roundSelection"  ></textarea>
+                <form id="type_people">
+                    <input type="radio" id="All" name="gender" value="all">
                     <label for="other">All</label>
-                    <input type="radio" id="Admin" name="gender" value="male">
+                    <input type="radio" id="Admin" name="gender" value="admin">
                     <label for="male">Admin</label>
-                    <input type="radio" id="Teacher" name="gender" value="female">
+                    <input type="radio" id="Teacher" name="gender" value="teachers">
                     <label for="female">Teachers</label>
-                    <input type="radio" id="Students" name="gender" value="other">
+                    <input type="radio" id="Students" name="gender" value="students">
                     <label for="other">Students</label>
                 </form>
-              <form id="department_drop">
+           <!--   <form id="department_drop">
                 <label for="cars">Department:</label>
-                <select id="cars" name="cars">
+                <select id="Department" name="cars">
                   <option value="CSE">CSE</option>
-                
-                </select>
+                  <option value="EEE">EEE</option>
+                </form>
+                </select>-->
             
-              </form><br> 
+              </form> <br> 
               <a href="#" class="btn btn-success btn-icon-split ">
                 <span class="icon text-white-50 bg-gradient-warning ">
                  <!--Wile Loading Change  it to <i class="fa fa-circle-o-notch fa-spin"></i> --> <i id="LoadBtn" class="fas fa-check"></i>
                 </span>
-                <span class="text">Add</span>
+               
+                <span id="cleanChecker" class="text" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal1">Add</span> <!---->
               </a>
                   </li>
                 </ul>
@@ -135,10 +137,33 @@
         </div></center>  
         
         
-        
+        <div class="modal fade" id="logoutModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">asd?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are You Sure you Want to send Notification?<br>
+                  <input type="checkbox" id="noticeCheck" name="vehicle1" value="Bike">
+                  <label for="vehicle1"> Check this Box if this is a Notice</label><br>
+
+
+                </div>
+                <center><code id="finalResult"><h4></h4></code></center>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" id="sendSubmit" ><font color="white">Send Notification</font></a>
+                </div>
+            </div>
+        </div>
+    </div>
       
         
-      
+    
         </div>
         <!-- /.container-fluid -->
 
@@ -187,7 +212,10 @@
 
 </body>
 <script>
-
+  $('#cleanChecker').click(function(){
+    $('#finalResult').text(" ")
+  })
+var importantNotice=0
     $('#department_drop').hide()
     $('#Students').click(function()
     {
@@ -200,6 +228,33 @@
     $('#Teacher').click(function()
     {
         $('#department_drop').show() 
+    })
+
+    $('#sendSubmit').click(function(){
+     
+      var remember = document.getElementById('noticeCheck');
+     
+var message=document.getElementById('roundSelection').value
+var towhom = $("input[type='radio']:checked").val();
+
+if(remember.checked)
+{
+  importantNotice=1
+}
+$.ajax({
+  url:'./ajax/add_notification.php',
+  type:'POST',
+  data:{
+    message:message,towhom:towhom,importantNotice:importantNotice
+  },
+  success:function(result)
+  {
+$('#finalResult').text(result)
+  }
+})
+    
+
+
     })
     </script>
 <!--Ajax Query for Adding Teacher-->
