@@ -11,8 +11,6 @@ $conn = OpenCon();
 <head>
 
 
-<?php 
-  include("includes/session.php"); ?>
 
 
   <meta charset="utf-8">

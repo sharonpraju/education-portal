@@ -114,16 +114,14 @@ $conn = OpenCon();
                                         <div class="row">
                                             <div class="form-group col-md-4 col">
                                                 <label for="teacher">Assign a Teacher</label>
+                                                
                                                 <select id="teacher" class="form-control" required>
                                                     <option selected value="">Choose a Teacher</option>
                                                     <?php 
                             $sql_query = "SELECT id, name, department FROM users WHERE who='teacher' OR who='admin' AND ban_status='0'";
                             $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                             while( $row = mysqli_fetch_assoc($resultset) ) { ?>
-                                                    <option value="<?php echo$row['id'];?>">
-                                                        <?php echo$row['name']; echo" ( ".$row['department']." )"; ?>
-                                                    </option>
-                                                    <?php } ?>
+                                                    <option value="<?php echo$row['id'];?>"><?php echo$row['name']; echo" ( ".$row['department']." )"; ?> </option> <?php } ?>
                                                 </select>
                                             </div>
                                             <div class="col">
@@ -214,12 +212,13 @@ $conn = OpenCon();
 
     <script>
     $('.text').click(function() {
+   
+      
         var subject = document.getElementById('subject').value;
         var description = document.getElementById('description').value;
         var teacher = $('#teacher option:selected').text();
         var teacher_id = document.getElementById('teacher').value;
-
-        if (subject != "" && teacher != "") {
+       if (subject != "" && teacher != "") {
             $("#error_alert").css("display", "none"); // To hide error
             $("#success_alert").css("display", "none"); // To hide success
             $("#process_alert").css("display", "block"); // To display processing
