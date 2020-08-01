@@ -586,6 +586,10 @@ $('#banStatus_itag'+id).removeClass('fas fa-check').addClass('fas fa-exclamation
 
 
   </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b23f0bb93646b8d90b9f148c69c887d14593bb3
         <!-- Bootstrap core JavaScript-->
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
