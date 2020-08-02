@@ -460,8 +460,7 @@ $id = $_SESSION['admin'];
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
                                                         <tr>
-                                                            <td id="<?php echo $user ['id']; ?>" contenteditable="true">
-                                                                <?php echo $user ['id']; ?> </td>
+                                                            <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>
                                                             <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?></td>
                                                             <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
                                                             <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
