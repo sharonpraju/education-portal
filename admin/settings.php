@@ -3,6 +3,7 @@
 include("../delta_config.php");
 $conn = OpenCon();
 include("includes/session.php");
+$id = $_SESSION['admin'];
 
 ?>
 <!DOCTYPE html>
@@ -455,7 +456,7 @@ include("includes/session.php");
                     
                     
 
-                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
+                    $sql_query = "SELECT id, name, who, department, email, ban_status FROM users WHERE id = '$id'";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
                                                         <tr>
@@ -482,10 +483,18 @@ include("includes/session.php");
                       
                       
                       ?></td>
-                                                            <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
-                                                            <td><a href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                                                            <td><?php if($user['who'] == 'superadmin'){ echo '
+                                                                <a class="fa fa-trash" href="#" data-toggle="modal" data-target="#confirmmodel" aria-hidden="true">
+                                                                ';}
+                                                                else{ echo '
+                                                                    <a id="deleteRef" value="'.$user ["id"].'" href="javascript:deleteItem('.$user ["id"].')" class="fa fa-trash" aria-hidden="true"></a>
+                                                                    ';}
+}
+                                                                ?>
+                                                            </td>
+                                                            <td><a href="javascript:editItem(<?php echo $id; ?>)" class="fas fa-check"></a></td>
                                                         </tr>
-                                                        <?php } ?>
+                                                       
 
                                                     </tbody>
                                                 </table>
@@ -518,7 +527,24 @@ include("includes/session.php");
 
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <div class="modal fade" id="confirmmodel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Delete?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Delete" below if you are ready to delete the account of all the college.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" <?php echo 'href="javascript:deleteItemSuper('.$id.')"'?>>Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- End of Page Wrapper -->
 
@@ -528,6 +554,23 @@ include("includes/session.php");
             </a>
             <script>
             function deleteItem(del_id) {
+                $.ajax({
+                    url: 'ajax/manage_users.php',
+                    type: "POST",
+                    data: {
+                        id: del_id
+                    },
+                    success: function(result) {
+                        console.log(result)
+                    }
+                })
+
+                location.reload();
+
+            }
+
+
+            function deleteItemSuper(del_id) {
                 $.ajax({
                     url: 'ajax/manage_users.php',
                     type: "POST",
