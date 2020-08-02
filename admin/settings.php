@@ -97,7 +97,7 @@ include("includes/session.php");
                                     class="nav-link border-0 text-uppercase font-weight-bold">Contact Developers</a>
                             </li>
                             <li class="nav-item flex-sm-fill">
-                                <a id="whipe-tab" data-toggle="tab" href="#whipe" role="tab" aria-controls="contact"
+                                <a id="wipe-tab" data-toggle="tab" href="#wipe" role="tab" aria-controls="contact"
                                     aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Wipe
                                     Account</a>
                             </li>
@@ -410,39 +410,47 @@ include("includes/session.php");
                                 </section>
                                 <!--Section: Contact v.2-->
                             </div>
-                            <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>id</th>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Department</th>
-                      <th>Email</th>
-                      <th>Status</th>
-                      <th>Delete</th>
-                      <th>Save</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>id</th>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Department</th>
-                      <th>Email</th>
-                      <th>Status</th>
-                      <th>Delete</th>
-                      <th>Save</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                    <?php 
+
+
+                            <div id="wipe" role="tabpanel" aria-labelledby="wipe-tab"
+                                class="tab-pane fade px-4 py-5">
+                                <!--Section: Contact v.2-->
+                                <section class="mb-4">
+
+                                    <div class="card shadow mb-4">
+                                        <div class="card-header py-3">
+                                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%"
+                                                    cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>id</th>
+                                                            <th>Name</th>
+                                                            <th>Position</th>
+                                                            <th>Department</th>
+                                                            <th>Email</th>
+                                                            <th>Status</th>
+                                                            <th>Delete</th>
+                                                            <th>Save</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>id</th>
+                                                            <th>Name</th>
+                                                            <th>Position</th>
+                                                            <th>Department</th>
+                                                            <th>Email</th>
+                                                            <th>Status</th>
+                                                            <th>Delete</th>
+                                                            <th>Save</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <?php 
 
                     
                     
@@ -450,13 +458,14 @@ include("includes/session.php");
                     $sql_query = "SELECT id, name, who, department, email, ban_status FROM users";
                     $resultset = mysqli_query($conn, $sql_query) or die("database error:". mysqli_error($conn));
                     while( $user = mysqli_fetch_assoc($resultset) ) { ?>
-                    <tr>
-                      <td id="<?php echo $user ['id']; ?>" contenteditable="true"><?php echo $user ['id']; ?> </td>  
-                      <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?> </td>
-                      <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
-                      <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
-                      <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
-                      <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
+                                                        <tr>
+                                                            <td id="<?php echo $user ['id']; ?>" contenteditable="true">
+                                                                <?php echo $user ['id']; ?> </td>
+                                                            <td id="<?php echo $user ['id']; ?>name" contenteditable="true"><?php echo $user ['name']; ?></td>
+                                                            <td id="<?php echo $user ['id']; ?>who" contenteditable="true"><?php echo $user ['who']; ?></td>
+                                                            <td id="<?php echo $user ['id']; ?>department" contenteditable="true"><?php echo $user ['department']; ?></td>
+                                                            <td id="<?php echo $user ['id']; ?>email" contenteditable="true"><?php echo $user ['email']; ?></td>
+                                                            <td id="<?php echo $user ['id']; ?>status" onclick=""><?php 
                       
                       if( $user ['ban_status'] == 1)
                       {
@@ -473,135 +482,139 @@ include("includes/session.php");
                       
                       
                       ?></td>
-                      <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
-                      <td><a  href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
-                    </tr>
-                    <?php } ?>
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+                                                            <td><a id="deleteRef" value="<?php echo $user ['id']; ?>" href="javascript:deleteItem(<?php echo $user ['id']; ?>)" class="fa fa-trash" aria-hidden="true"></a></td>
+                                                            <td><a href="javascript:editItem(<?php echo $user ['id']; ?>)" class="fas fa-check"></a></td>
+                                                        </tr>
+                                                        <?php } ?>
 
-        </div>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
-
-
+                                </section>
+                                <!--Section: Contact v.2-->
+                            </div>
 
 
+                        </div>
 
 
-                    <!-- /.container-fluid -->
+
+
+
+
+
+
+                        <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- End of Main Content -->
+
+
+                    <?php include("includes/footer.html"); ?>
+
 
                 </div>
-                <!-- End of Main Content -->
-
-
-                <?php include("includes/footer.html"); ?>
-
+                <!-- End of Content Wrapper -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Page Wrapper -->
 
-        </div>
-        <!-- End of Page Wrapper -->
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+            <script>
+            function deleteItem(del_id) {
+                $.ajax({
+                    url: 'ajax/manage_users.php',
+                    type: "POST",
+                    data: {
+                        id: del_id
+                    },
+                    success: function(result) {
+                        console.log(result)
+                    }
+                })
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-        <script>
-function deleteItem(del_id){
-  $.ajax({
-    url:'ajax/manage_users.php',
-    type:"POST",
-    data:{id:del_id},
-    success:function(result){
-   console.log(result)
-    }
-  })
+                location.reload();
 
-  location.reload();
+            }
 
-}
-function editItem(id){
-var edit_name=document.getElementById(id+"name").textContent
-var edit_who=document.getElementById(id+"who").textContent
-var edit_department=document.getElementById(id+"department").textContent
-var edit_email=document.getElementById(id+"email").textContent
+            function editItem(id) {
+                var edit_name = document.getElementById(id + "name").textContent
+                var edit_who = document.getElementById(id + "who").textContent
+                var edit_department = document.getElementById(id + "department").textContent
+                console.log(edit_department)
+                var edit_email = document.getElementById(id + "email").textContent
 
-  $.ajax({
-    url:'ajax/manage_users_edit.php',
-    type:"POST",
-    data:{
-      id:id,
-      edit_name:edit_name,
-      edit_department:edit_department,
-      edit_who:edit_who,
-      edit_email:edit_email
-      
-      },
-    success:function(result){
-   console.log(result)
-    }
-  })
+                $.ajax({
+                    url: 'ajax/manage_users_edit.php',
+                    type: "POST",
+                    data: {
+                        id: id,
+                        edit_name: edit_name,
+                        edit_department: edit_department,
+                        edit_who: edit_who,
+                        edit_email: edit_email
 
-}
+                    },
+                    success: function(result) {
+                        console.log(result)
+                    }
+                })
 
-function changeStatus(id,banStatus)
-{ 
-  if(banStatus==1)
-  {
-    $('#banStatus'+id).removeClass('btn btn-warning btn-circle').addClass('btn btn-success btn-circle')
-$('#banStatus_itag'+id).removeClass('fas fa-exclamation-triangle').addClass('fas fa-check')
-  }
-  else
-  {
-    $('#banStatus'+id).removeClass('btn btn-success btn-circle').addClass('btn btn-warning btn-circle')
-$('#banStatus_itag'+id).removeClass('fas fa-check').addClass('fas fa-exclamation-triangle')
+            }
 
-  }
+            function changeStatus(id, banStatus) {
+                if (banStatus == 1) {
+                    $('#banStatus' + id).removeClass('btn btn-warning btn-circle').addClass(
+                        'btn btn-success btn-circle')
+                    $('#banStatus_itag' + id).removeClass('fas fa-exclamation-triangle').addClass('fas fa-check')
+                } else {
+                    $('#banStatus' + id).removeClass('btn btn-success btn-circle').addClass(
+                        'btn btn-warning btn-circle')
+                    $('#banStatus_itag' + id).removeClass('fas fa-check').addClass('fas fa-exclamation-triangle')
 
-  
- $.ajax({
-    url:'ajax/manage_users_edit.php',
-    type:"POST",
-    data:{
-      id:id,
-      banStatus:banStatus,
-      process:"change_id"
-      
-      },
-    success:function(result){
-   console.log(result)
-    }
-    
-  })
+                }
 
 
-}
+                $.ajax({
+                    url: 'ajax/manage_users_edit.php',
+                    type: "POST",
+                    data: {
+                        id: id,
+                        banStatus: banStatus,
+                        process: "change_id"
+
+                    },
+                    success: function(result) {
+                        console.log(result)
+                    }
+
+                })
 
 
+            }
+            </script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  </script>
-        <!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="js/sb-admin-2.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="vendor/chart.js/Chart.min.js"></script>
 
-        <!-- Page level plugins -->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/chart-area-demo.js"></script>
-        <script src="js/demo/chart-pie-demo.js"></script>
+            <!-- Page level custom scripts -->
+            <script src="js/demo/chart-area-demo.js"></script>
+            <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
